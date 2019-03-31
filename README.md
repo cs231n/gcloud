@@ -52,7 +52,9 @@ Your account typically does not come with GPU quota. You have to explicitly requ
 1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You should see a configuration sheet with the title "New Deep Learning VM deployment".
 2. Fill in `Deployment name` field with your preferred VM name.
 3. In `Machine type` field, change `2 vCPUs` to `1 vCPU`. You can always add more CPUs later if necessary.
-4. Change `Number of GPUs` to `None`. For our first assignment, you don't need GPUs. Since GPUs are very expensive, you can add them back when they become necessary later.
+4. In `GPUs` field, you can follow one of the two paths:
+    * (a) If you have successfully requested GPU quota, you should set `Number of GPUs` to `1`. **GPU drivers and CUDA will be automatically installed _only if_ you select at least 1 GPU**. For our first assignment, you don't need GPUs. Since GPUs are very expensive, you can add them back when they become necessary later.
+    * (b) If you don't have GPU quota yet, you must set `Number of GPUs` to `None`. WARNING: GPU drivers and CUDA will **NOT** be installed. All libraries will be CPU only. Once your GPU quota increase request is approved, you can follow path (a) to deploy a GPU-enabled image.
 5. In `Frameworks` field, change `TensorFlow 1.13 (Intel optimized ...)` to `PyTorch 1.0 + fast.ai`. We will have instructions for you later if you want Tensorflow.
 6. Check the box `Install NVIDIA GPU driver automatically on first startup?`.
 7. Check the box `Enable access to JupyterLab via URL instead of SSH. (Beta)`.
@@ -62,6 +64,20 @@ Your account typically does not come with GPU quota. You have to explicitly requ
 Your configuration sheet should look similar to below:
 
 ![](.img/vm-config.png)
+
+### Change VM hardware
+
+You can always change number of CPUs, number of GPUs, CPU memory, and GPU type after your VM has been created.
+
+1. You must stop the instance first.
+2. Click "edit" on your VM page.
+3. In `Machine type` box, click `Customize`.
+4. Set `Number of GPUs` to `None` if you don't need GPUs.
+5. For `GPU type`, `NVIDIA Tesla K80` is typically enough for most of our assignments. `P100` and `V100` are way more expensive, but also faster.
+6. Scroll all the way down and click `Save` button.
+7. Start your instance again.
+
+![](.img/machine-typ.png)
 
 ### Configure networking
 
@@ -84,12 +100,19 @@ We need to tweak a few more settings to enable remote access to Jupyter Notebook
 Your configuration sheets should look similar to below:
 
 ![](.img/network.png)
+
+Firewall Rules:
+
 ![](.img/firewall.png)
 
 
 ### Access your newly created VM
 
-Copy and paste the gcloud command from here. It should look like
+Now that you have created your virtual GCE, you want to be able to connect to it from your computer. The rest of this tutorial goes over how to do that using the command line. First, download the Google Cloud SDK that is appropriate for your platform from [here](https://cloud.google.com/sdk/docs/) and follow their installation instructions. **NOTE: this tutorial assumes that you have performed step #4 on the website which they list as optional**. When prompted, make sure you select `us-west1-b` as the time zone.
+
+If `gcloud` command is not in system path, you can also reference it by its full path `/<DIRECTORY-WHERE-GOOGLE-CLOUD-IS-INSTALLED>/bin/gcloud`. See [this page](https://cloud.google.com/compute/docs/instances/connecting-to-instance "Title") for more detailed instructions.
+
+To ssh into your VM, copy and paste the gcloud command from the VM page. It should look like
 
 ```bash
 gcloud compute --project "<YOUR_PROJECT_NAME>" ssh --zone "us-west1-b" "<YOUR_VM_NAME>"
@@ -98,15 +121,22 @@ gcloud compute --project "<YOUR_PROJECT_NAME>" ssh --zone "us-west1-b" "<YOUR_VM
 ![](.img/connect-to-vm.png)
 
 
-## Run our setup script
+## First-time Setup Script
 
-Run the following commands in your home directory. You will be asked to set up a password for your Jupyter notebook.
+After you SSH into the VM for the first time, you need to run a few commands in your home directory. You will be asked to set up a password for your Jupyter notebook.
 
 ```bash
-git clone https://github.com/LinxiFan/gcloud-basic-setup.git
-cd gcloud-basic-setup
+git clone https://github.com/cs231n/gcloud.git
+cd gcloud/
 chmod +x ./setup.sh
 ./setup.sh
 ```
 
+### Verification
 
+If you have GPU enabled, you should be able to:
+
+* run `nvidia-smi` and see the list of attached GPUs and their usage statistics.
+* inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
+
+You are now ready to work on the assignments on Google Cloud!
