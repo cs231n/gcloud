@@ -136,7 +136,7 @@ chmod +x ./setup.sh
 
 If you have GPU enabled, you should be able to:
 
-* run `nvidia-smi` and see the list of attached GPUs and their usage statistics.
+* run `nvidia-smi` and see the list of attached GPUs and their usage statistics. Run `watch nvidia-smi` to monitor your GPU usage in real time.
 * inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
 
 You are now ready to work on the assignments on Google Cloud!
