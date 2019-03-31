@@ -139,4 +139,67 @@ If you have GPU enabled, you should be able to:
 * run `nvidia-smi` and see the list of attached GPUs and their usage statistics. Run `watch nvidia-smi` to monitor your GPU usage in real time.
 * inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
 
-You are now ready to work on the assignments on Google Cloud!
+
+## Using Jupyter Notebook with Google Compute Engine ##
+Many of the assignments will involve using Jupyter Notebook. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
+
+### Getting a Static IP Address ###
+Change the Extenal IP address of your GCE instance to be static (see screenshot below).
+
+![](.img/external-ip.png)
+
+To Do this, click on the 3 line icon next to the **Google Cloud Platform** button on the top left corner of your screen, go to **VPC network** and **External IP addresses** (see screenshot below).
+
+![](.img/cloud-networking-external-ip.png)
+
+To have a static IP address, change **Type** from **Ephemeral** to **Static**. Enter your prefered name for your static IP, ours is `cs231n-ip` (see screenshot below). And click on Reserve. Remember to release the static IP address when you are done because according to [this page](https://jeffdelaney.me/blog/running-jupyter-notebook-google-cloud-platform/) Google charges a small fee for unused static IPs.
+
+![](.img/cloud-networking-external-ip-naming.png)
+
+Take note of your Static IP address (circled on the screenshot below). We use 35.185.240.182 for this tutorial.
+
+![](.img/cloud-networking-external-ip-address.png)
+
+
+### Launching and connecting to Jupyter Notebook ###
+
+After you ssh into your VM using the prior instructions, run Jupyter notebook from the folder with your assignment files.
+
+```
+jupyter notebook
+```
+
+The default port is `8888`, specified in `~/.jupyter/jupyter_notebook_config.py`.
+
+You can connect to your Jupyter session from your personal laptop. Open any browser and visit `35.185.240.182:8888`. The login password is the one you set with the setup script above.
+
+
+## Submission: Transferring Files From Your Instance To Your Computer ##
+
+When you are done with your assignments, run the submission script in your assignment folder to make a zip file. Please refer to specific instructions for each assignment.
+
+Once you create the zip file, e.g. `assignment1.zip`, you will transfer the file from GCE instance to your local laptop. There is an [easy command](https://cloud.google.com/sdk/gcloud/reference/compute/scp) for this purpose:
+
+```
+gcloud compute scp <user>@<instance-name>:/path/to/assignment1.zip /local/path
+```
+
+For example, to download files from our instance to the current folder:
+
+```
+gcloud compute scp tonystark@cs231:/home/shared/assignment1.zip .
+```
+
+The transfer works in both directions. To upload a file to GCE:
+
+```
+gcloud compute scp /my/local/file tonystark@cs231:/home/shared/
+```
+
+Another (perhaps easier) option proposed by a student is to directly download the zip file from Jupyter. After running the submission script and creating assignment1.zip, you can download that file directly from Jupyter. To do this, go to Jupyter Notebook and click on the zip file, which will be downloaded to your local computer.
+
+## BIG REMINDER: Make sure you stop your instances! ##
+
+Don't forget to stop your instance when you are done (by clicking on the stop button at the top of the page showing your instances). You can restart your instance and the downloaded software will still be available.
+
+We have seen students who left their instances running for many days and ran out of credits. You will be charged per hour when your instance is running. This includes code development time. We encourage you to read up on Google Cloud, regularly keep track of your credits and not solely rely on our tutorials.
