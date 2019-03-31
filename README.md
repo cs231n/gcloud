@@ -150,15 +150,15 @@ Change the Extenal IP address of your GCE instance to be static (see screenshot 
 
 To Do this, click on the 3 line icon next to the **Google Cloud Platform** button on the top left corner of your screen, go to **VPC network** and **External IP addresses** (see screenshot below).
 
-![](.img/cloud-networking-external-ip.png)
+![](.img/networking-external-ip.png)
 
 To have a static IP address, change **Type** from **Ephemeral** to **Static**. Enter your prefered name for your static IP, ours is `cs231n-ip` (see screenshot below). And click on Reserve. Remember to release the static IP address when you are done because according to [this page](https://jeffdelaney.me/blog/running-jupyter-notebook-google-cloud-platform/) Google charges a small fee for unused static IPs.
 
-![](.img/cloud-networking-external-ip-naming.png)
+![](.img/networking-external-ip-naming.png)
 
 Take note of your Static IP address (circled on the screenshot below). We use 35.185.240.182 for this tutorial.
 
-![](.img/cloud-networking-external-ip-address.png)
+![](.img/networking-external-ip-address.png)
 
 
 ### Launching and connecting to Jupyter Notebook ###
