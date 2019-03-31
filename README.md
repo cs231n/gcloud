@@ -77,7 +77,7 @@ You can always change number of CPUs, number of GPUs, CPU memory, and GPU type a
 6. Scroll all the way down and click `Save` button.
 7. Start your instance again.
 
-![](.img/machine-typ.png)
+<img src=".img/machine-typ.png" width="50%">
 
 ### Configure networking
 
@@ -99,11 +99,11 @@ We need to tweak a few more settings to enable remote access to Jupyter Notebook
 
 Your configuration sheets should look similar to below:
 
-![](.img/network.png)
+<img src=".img/network.png" width="70%">
 
 Firewall Rules:
 
-![](.img/firewall.png)
+<img src=".img/firewall.png" width="70%">
 
 
 ### Access your newly created VM
