@@ -37,14 +37,18 @@ To change the name of your project, click on [**Go to project settings**](consol
 
 ## Request an increase in GPU quota
 
-Your account typically does not come with GPU quota. You have to explicitly request for it in the "IAM Admin" console. Follow the instructions:
+Your account typically does not come with GPU quota. You have to explicitly request for it under **IAM Admin** > **Quotas**. Follow the instructions at:
 
 * [General quota instructions](https://cloud.google.com/compute/quotas#requesting_additional_quota)
 
 * [Step-by-step GPU-specific walk-through](https://stackoverflow.com/questions/45227064/how-to-request-gpu-quota-increase-in-google-cloud) (all answers in the link are useful)
 
+**Please request the quota increase ASAP**, because they will take up to a week to process! If you don't have GPU quota, you will have to create a CPU-only VM first and create another GPU VM later, explained in the next section.
 
-**Please request the quota increase ASAP**, because they will take up to a week to process. If you don't have GPU quota, you will have to create a CPU-only VM first and create another GPU VM later, explained in the next section.
+FAQ: 
+**_Why don't I see any GPU-related quotas when I follow the instructions to filter for them?_**. 
+Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Please set these to be `us-west1` and `us-west1-b`, respectively, and then try again.
+
 
 
 ## Google Cloud VM Image
@@ -83,19 +87,20 @@ You can always change number of CPUs, number of GPUs, CPU memory, and GPU type a
 
 Wait until the deployment is finished. You should see a running VM with a green checkmark next to it on your [Compute Engine page](https://console.cloud.google.com/compute/).
 
-We need to tweak a few more settings to enable remote access to Jupyter Notebook. You need to **stop the instance** first and then:
+We need to tweak a few more settings to enable remote access to Jupyter notebooks.
 
-1. Go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. Click "edit" on your VM's page.
-2. Select "Allow HTTP traffic" and "Allow HTTPS traffic".
-3. Scroll all the way down and click the blue button "save".
-4. Go to [Firewall config page](https://console.cloud.google.com/networking/firewalls).
-5. Click "CREATE FIREWALL RULE"
-6. Give it an arbitrary name, such as `cs231n`.
-7. In `Targets` field, select `All instances in the network`.
-8. In `Source IP ranges`, enter `0.0.0.0/0`.
-9. In `Protocols and ports` field, select "Specified protocols and ports". Then check `tcp` and enter `7000-9000`.
-10. Click the blue button `Create`.
-11. Restart your instance on the Compute Engine page.
+1. You must stop the instance first.
+2. Go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. Click "edit" on your VM's page.
+3. Select "Allow HTTP traffic" and "Allow HTTPS traffic".
+4. Scroll all the way down and click the blue button "save".
+5. Go to [Firewall config page](https://console.cloud.google.com/networking/firewalls).
+6. Click "CREATE FIREWALL RULE"
+7. Give it an arbitrary name, such as `cs231n`.
+8. In `Targets` field, select `All instances in the network`.
+9. In `Source IP ranges`, enter `0.0.0.0/0`.
+10. In `Protocols and ports` field, select "Specified protocols and ports". Then check `tcp` and enter `7000-9000`.
+11. Click the blue button `Create`.
+12. Restart your instance on the Compute Engine page.
 
 Your configuration sheets should look similar to below:
 
