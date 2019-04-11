@@ -49,7 +49,7 @@ Your account typically does not come with GPU quota. You have to explicitly requ
 
 ## Google Cloud VM Image
 
-1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You should see a configuration sheet with the title "New Deep Learning VM deployment".
+1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You may (or may not) be taken to a page where you have to click on "Launch in Compute Engine", and then you should see a configuration sheet with the title "New Deep Learning VM deployment".
 2. Fill in `Deployment name` field with your preferred VM name.
 3. In `Machine type` field, change `2 vCPUs` to `1 vCPU`. You can always add more CPUs later if necessary.
 4. In `GPUs` field, you can follow one of the two paths:
@@ -70,7 +70,7 @@ Your configuration sheet should look similar to below:
 You can always change number of CPUs, number of GPUs, CPU memory, and GPU type after your VM has been created.
 
 1. You must stop the instance first.
-2. Click "edit" on your VM page.
+2. Go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. Click "edit" on your VM's page.
 3. In `Machine type` box, click `Customize`.
 4. Set `Number of GPUs` to `None` if you don't need GPUs.
 5. For `GPU type`, `NVIDIA Tesla K80` is typically enough for most of our assignments. `P100` and `V100` are way more expensive, but also faster.
@@ -85,7 +85,7 @@ Wait until the deployment is finished. You should see a running VM with a green 
 
 We need to tweak a few more settings to enable remote access to Jupyter Notebook. You need to **stop the instance** first and then:
 
-1. Click "edit" on your VM page.
+1. Go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. Click "edit" on your VM's page.
 2. Select "Allow HTTP traffic" and "Allow HTTPS traffic".
 3. Scroll all the way down and click the blue button "save".
 4. Go to [Firewall config page](https://console.cloud.google.com/networking/firewalls).
@@ -112,10 +112,10 @@ Now that you have created your virtual GCE, you want to be able to connect to it
 
 If `gcloud` command is not in system path, you can also reference it by its full path `/<DIRECTORY-WHERE-GOOGLE-CLOUD-IS-INSTALLED>/bin/gcloud`. See [this page](https://cloud.google.com/compute/docs/instances/connecting-to-instance "Title") for more detailed instructions.
 
-To ssh into your VM, copy and paste the gcloud command from the VM page. It should look like
+To ssh into your VM, go to your VM instance details page by clicking on its name. Under **Remote access** at the top of the page, you may either click directly on `SSH` which will launch a new browser window with the SSH session, or click on the drop-down arrow and select `View gcloud command` instead to retrieve the terminal command. It should look like
 
 ```bash
-gcloud compute --project "<YOUR_PROJECT_NAME>" ssh --zone "us-west1-b" "<YOUR_VM_NAME>"
+gcloud compute --project "<YOUR_PROJECT_ID>" ssh --zone "us-west1-b" "<YOUR_VM_NAME>"
 ```
 
 ![](.img/connect-to-vm.png)
@@ -144,15 +144,17 @@ If you have GPU enabled, you should be able to:
 Many of the assignments will involve using Jupyter Notebook. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
 
 ### Getting a Static IP Address ###
-Change the Extenal IP address of your GCE instance to be static (see screenshot below).
+Change the Extenal IP address of your Google Cloud Engine instance to be static (see screenshot below).
 
 ![](.img/external-ip.png)
 
-To Do this, click on the 3 line icon next to the **Google Cloud Platform** button on the top left corner of your screen, go to **VPC network** and **External IP addresses** (see screenshot below).
+To Do this, click on the 3 line icon next to the **Google Cloud Platform** button on the top left corner of your screen, go to **VPC network** > **External IP addresses** (see screenshot below).
 
 ![](.img/networking-external-ip.png)
 
-To have a static IP address, change **Type** from **Ephemeral** to **Static**. Enter your prefered name for your static IP, ours is `cs231n-ip` (see screenshot below). And click on Reserve. Remember to release the static IP address when you are done because according to [this page](https://jeffdelaney.me/blog/running-jupyter-notebook-google-cloud-platform/) Google charges a small fee for unused static IPs.
+To have a static IP address, change **Type** from **Ephemeral** to **Static**. Enter your prefered name for your static IP, ours is `cs231n-ip` (see screenshot below). And click on Reserve. 
+
+**NOTE:** At the end of CS 231N when you don't need your instance anymore, release the static IP address because Google charges a small fee for unused static IPs (according to [this page](https://jeffdelaney.me/blog/running-jupyter-notebook-google-cloud-platform/)).
 
 ![](.img/networking-external-ip-naming.png)
 
