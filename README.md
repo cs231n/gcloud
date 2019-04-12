@@ -149,7 +149,7 @@ If you have GPU enabled, you should be able to:
 Many of the assignments will involve using Jupyter Notebook. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
 
 ### Getting a Static IP Address ###
-Change the Extenal IP address of your Google Cloud Engine instance to be static (see screenshot below).
+Change the External IP address of your Google Cloud Engine instance to be static (see screenshot below).
 
 ![](.img/external-ip.png)
 
