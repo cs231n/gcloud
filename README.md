@@ -1,4 +1,4 @@
-# Google Cloud Setup and Tutorial
+M# Google Cloud Setup and Tutorial
 
 
 ## BEFORE WE BEGIN ##
@@ -45,21 +45,28 @@ Your account typically does not come with GPU quota. You have to explicitly requ
 
 **Please request the quota increase ASAP**, because they will take up to a week to process! If you don't have GPU quota, you will have to create a CPU-only VM first and create another GPU VM later, explained in the next section.
 
+**Notice there are two kinds of GPU quota you might need to adjust.** 
+
+You should first change your quota of **GPU (all regions)**. 
+![](.img/gpu-all-regions.png)
+
+The region-specific GPU should be default to 1. But if you need more than 1 GPUs for your projects, you should pick the corresponding metric and location of your VM instance.
+![](.img/gpu-region.png)
+
 FAQ: 
 **_Why don't I see any GPU-related quotas when I follow the instructions to filter for them?_**. 
 Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Please set these to be `us-west1` and `us-west1-b`, respectively, and then try again.
 
 
-
 ## Google Cloud VM Image
 
-1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You may (or may not) be taken to a page where you have to click on "Launch in Compute Engine", and then you should see a configuration sheet with the title "New Deep Learning VM deployment".
+1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You may (or may not) be taken to a page where you have to click on "Launch", and then you should see a configuration sheet with the title "New Deep Learning VM deployment".
 2. Fill in `Deployment name` field with your preferred VM name.
 3. In `Machine type` field, change `2 vCPUs` to `1 vCPU`. You can always add more CPUs later if necessary.
 4. In `GPUs` field, you can follow one of the two paths:
     * (a) If you have successfully requested GPU quota, you should set `Number of GPUs` to `1`. **GPU drivers and CUDA will be automatically installed _only if_ you select at least 1 GPU**. For our first assignment, you don't need GPUs. Since GPUs are very expensive, you can add them back when they become necessary later.
     * (b) If you don't have GPU quota yet, you must set `Number of GPUs` to `None`. WARNING: GPU drivers and CUDA will **NOT** be installed. All libraries will be CPU only. Once your GPU quota increase request is approved, you can follow path (a) to deploy a GPU-enabled image.
-5. In `Frameworks` field, change `TensorFlow 1.13 (Intel optimized ...)` to `PyTorch 1.0 + fast.ai`. We will have instructions for you later if you want Tensorflow.
+5. In `Frameworks` field, change `TensorFlow Enterpris 2.1 (CUDA 10.1)` to `PyTorch 1.4 + fast.ai (CUDA 10.0`. We will have instructions for you later if you want Tensorflow.
 6. Check the box `Install NVIDIA GPU driver automatically on first startup?`.
 7. Check the box `Enable access to JupyterLab via URL instead of SSH. (Beta)`.
 8. Leave all other options as default.
@@ -129,7 +136,6 @@ gcloud compute --project "<YOUR_PROJECT_ID>" ssh --zone "us-west1-b" "<YOUR_VM_N
 ## First-time Setup Script
 
 After you SSH into the VM for the first time, you need to run a few commands in your home directory. You will be asked to set up a password for your Jupyter notebook.
-
 ```bash
 git clone https://github.com/cs231n/gcloud.git
 cd gcloud/
