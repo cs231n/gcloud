@@ -55,8 +55,8 @@ If you don't have a Google Cloud account with your Stanford email already, you s
 ![](/.img/upgrade-1.png)
 ![](/.img/upgrade-2.png)
 
-### Claim CS231N GCP credits
-NOTE: You can only receive CS231N credits if your Google Cloud account is set up with your stanford email (SUID@stanford.edu). 
+## Claim CS231N GCP credits
+NOTE: You can only receive CS231N credits if your Google Cloud account is set up with your stanford email (<SUID>@stanford.edu). 
 
 1. We will release the $50 GCP credits Google form on Piazza. After your complete the form, you will see a link to Google Cloud Education Grants page. You will need your stanford email account to receive the credits.
 ![](/.img/get-coupon.png)
@@ -70,25 +70,28 @@ NOTE: You can only receive CS231N credits if your Google Cloud account is set up
 
 ## Request an increase in GPU quota
 
-Your account typically does not come with GPU quota. You have to explicitly request for it under **IAM Admin** > **Quotas**. Follow the instructions at:
+Your account typically does not come with GPU quota. You have to explicitly request for it under **IAM Admin** > **Quotas**. 
 
-* [General quota instructions](https://cloud.google.com/compute/quotas#requesting_additional_quota)
+**Please request the quota increase ASAP**, because they will take up between couple minutes to a week to process!  If you don't have GPU quota, you will have to create a CPU-only VM first and create another GPU VM later, explained in the next section.
 
-* [Step-by-step GPU-specific walk-through](https://stackoverflow.com/questions/45227064/how-to-request-gpu-quota-increase-in-google-cloud) (all answers in the link are useful)
+**Notice there are two kinds of GPU quota you will need to adjust.** 
 
-**Please request the quota increase ASAP**, because they will take up to a week to process! If you don't have GPU quota, you will have to create a CPU-only VM first and create another GPU VM later, explained in the next section.
-
-**Notice there are two kinds of GPU quota you might need to adjust.** 
-
-You should first change your quota of **GPU (all regions)**. 
+1. You should first change your quota of **GPU (all regions)**.  Filter the **Metric** to be **GPU (all regions)**, **Location**  to be **Global**. 
 ![](.img/gpu-all-regions.png)
 
-The region-specific GPU should be default to 1. But if you need more than 1 GPUs for your projects, you should pick the corresponding metric and location of your VM instance.
+ Wait until GCP send you a second email (first email is just to notify they receive the request) that looks like this. It could take couple minutes to couple days for them to approve.
+ ![](.img/gpu-quota-approved.png) 
+
+2. You should adjust your region-specific GPU (usually it is already 1 by default) if you want more than 1 GPU in your instance. You can filter by the **Metric** and **Location** to set the type of GPU and your region.
 ![](.img/gpu-region.png)
 
 FAQ: 
 **_Why don't I see any GPU-related quotas when I follow the instructions to filter for them?_**. 
-Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Please set these to be `us-west1` and `us-west1-b`, respectively, and then try again.
+Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Some zones do not have GPU resources.Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing) to find the availability of GPU resources. 
+
+If you do not see any GPU-related quotas at all. Make sure you first upgrade your free tier account to full account. 
+
+More instructions at [General quota instructions](https://cloud.google.com/compute/quotas#requesting_additional_quota) and [Step-by-step GPU-specific walk-through](https://stackoverflow.com/questions/45227064/how-to-request-gpu-quota-increase-in-google-cloud) (all answers in the link are useful)
 
 
 ## Google Cloud VM Image
@@ -105,11 +108,10 @@ Check that you have a default zone and region set under **Compute Engine** > **S
 8. Leave all other options as default.
 9. Click the blue botton `Deploy` at the end of the page.
 
-Your configuration sheet should look similar to below:
-
+Your configuration sheet should look similar to below. Follow exactly the same configuration for the ones with red boxes. For configurations with orange boxes, you can adjust it based on your project need as discussed below. 
 ![](.img/vm-config.png)
 
-### Change VM hardware
+### Customize VM hardware
 
 You can always change number of CPUs, number of GPUs, CPU memory, and GPU type after your VM has been created.
 
@@ -189,7 +191,7 @@ If you have GPU enabled, you should be able to:
 * If you want to use Tensorflow 2.0, run `python test_tf.py`. The script will show you the installed Tensorflow version (2.0.0-alpha) and then run a sample MNIST training. You should see around 97% accuracy at the end.  
 
 ## Using Jupyter Notebook with Google Compute Engine ##
-Many of the assignments will involve using Jupyter Notebook. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
+You can also use Jupyter Notebook to experiment in your projects. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
 
 ### Getting a Static IP Address ###
 Change the External IP address of your Google Cloud Engine instance to be static (see screenshot below).
