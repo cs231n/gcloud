@@ -51,8 +51,8 @@ If you don't have a Google Cloud account already, you should receive $300 credit
 ![](/.img/add-people.png)
 
 6. **Upgrade your account** in order to use GPUs following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade). Otherwise [Google Cloud Free Tier](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade) does not come with GPU support or quota.
-![](/.img/upgrade-1.png | width=100)
-![](/.img/upgrade-2.png  | width=100)
+![](/.img/upgrade-1.png)
+![](/.img/upgrade-2.png)
 
 ### Claim CS231N course credits
 
