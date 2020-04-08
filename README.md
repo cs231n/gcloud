@@ -32,8 +32,9 @@ implementations. If $50 ends up not being enough, contact staff on Piazza. We wi
 This tutorial lists the necessary steps of working on the projects using Google Cloud. **We expect this tutorial to take up to an hour. Don't get intimidated by the steps, we tried to make the tutorial detailed so that you are less likely to get stuck on a particular step. Please tag all questions related to Google Cloud with google_cloud on Piazza.**
 
 ### Sign Up GCP for the first time ### 
- 
-If you don't have a Google Cloud account already, you should receive $300 credits from Google by default when you first sign up and **also upgrade it into a full account**. Please try to use the resources judiciously. 
+You can skip this section if you already have a Google Cloud account set up with your stanford email (SUID@stanford.edu). 
+
+If you don't have a Google Cloud account with your Stanford email already, you should receive $300 credits from Google by default when you first sign up and **also upgrade it into a full account**. Please try to use the resources judiciously. 
 
 1. Create Google Cloud account by going to the [Google Cloud homepage](https://cloud.google.com/?utm_source=google&utm_medium=cpc&utm_campaign=2015-q2-cloud-na-gcp-skws-freetrial-en&gclid=CP2e4PPpiNMCFU9bfgodGHsA1A "Title"). Click on the blue **Get Started for free** button. Sign into your Gmail account. Here is an illustrative example.
 ![](.img/launching-screen.png)
@@ -54,8 +55,18 @@ If you don't have a Google Cloud account already, you should receive $300 credit
 ![](/.img/upgrade-1.png)
 ![](/.img/upgrade-2.png)
 
-### Claim CS231N course credits
+### Claim CS231N GCP credits
+NOTE: You can only receive CS231N credits if your Google Cloud account is set up with your stanford email (SUID@stanford.edu). 
 
+1. We will release the $50 GCP credits Google form on Piazza. After your complete the form, you will see a link to Google Cloud Education Grants page. You will need your stanford email account to receive the credits.
+![](/.img/get-coupon.png)
+
+2. After submission, you should receive a email from GCP with a link to confirm your email address. Click the link to verify your email.
+![](/.img/email-confirmation.png)
+
+3. You will soon receive another email from GCP with a link that applys the $50 credits to your account. After that the website will jump to your [Billing](https://console.cloud.google.com/billing) page where you should see your have linked to CS231N billing account with $50 free credits. 
+![](/.img/accept-credits.png)
+![](/.img/billing-page.png)
 
 ## Request an increase in GPU quota
 
