@@ -1,5 +1,6 @@
 # Google Cloud Setup and Tutorial
 
+(Last Update on April 8, 2020)
 
 ## Before We Begin ##
 ### BIG REMINDER: Make sure you stop your instances! ###
@@ -32,7 +33,7 @@ This tutorial lists the necessary steps of working on the projects using Google 
 
 ### Sign Up GCP for the first time ### 
  
-If you don't have a Google Cloud account already,ou should receive $300 credits from Google by default when you first sign up and **also upgrade it into a full account**. Please try to use the resources judiciously. 
+If you don't have a Google Cloud account already, you should receive $300 credits from Google by default when you first sign up and **also upgrade it into a full account**. Please try to use the resources judiciously. 
 
 1. Create Google Cloud account by going to the [Google Cloud homepage](https://cloud.google.com/?utm_source=google&utm_medium=cpc&utm_campaign=2015-q2-cloud-na-gcp-skws-freetrial-en&gclid=CP2e4PPpiNMCFU9bfgodGHsA1A "Title"). Click on the blue **Get Started for free** button. Sign into your Gmail account. Here is an illustrative example.
 ![](.img/launching-screen.png)
@@ -40,16 +41,18 @@ If you don't have a Google Cloud account already,ou should receive $300 credits 
 2. Choose **Account type** to be **Individual**. You will then fill in your name, address and credit card information.
 ![](.img/register-info.png)
 
-3.Click the "Google Cloud Platform" (in red circle), and it will take you to the main project dashboard:
+3. Click the "Google Cloud Platform" (in red circle), and it will take you to the main project dashboard:
 ![](.img/welcome-screen.png)
 
-4.On the main project dashboard, you can change the name of your project by clicking **Go to project settings**. 
+4. On the main project dashboard, you can change the name of your project by clicking **Go to project settings**. 
 ![](.img/dashboard-screen.png)
 
-5.To add project collaborators, click **ADD PEOPLE TO THIS PROJECT**. Add their email and make their role owners. 
-![](/img/add-people.png)
+5. To add project collaborators, click **ADD PEOPLE TO THIS PROJECT**. Add their email and make their role owners. 
+![](/.img/add-people.png)
 
-6. **Upgrade your account** to use GPUs
+6. **Upgrade your account** in order to use GPUs following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade). Otherwise [Google Cloud Free Tier](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade) does not come with GPU support or quota.
+![](/.img/upgrade-1.png | width=100)
+![](/.img/upgrade-2.png  | width=100)
 
 ### Claim CS231N course credits
 
