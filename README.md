@@ -11,10 +11,11 @@
     2. [Configure Your Project](#configure-your-project)
 3. [Claim CS231N GCP credits](#claim-cs231n-gcp-credits)
 4. [Request an Increase in GPU Quota](#request-an-increase-in-gpu-quota)  
+    1. [Why don't I See Any GPU-related Quota](#why-dont-i-see-any-gpu-related-quotas)
 5. [Set Up Google Cloud VM Image](#set-up-google-cloud-vm-image)
-    1. [Customize VM hardware](#customize-vm-hardware)
-    2. [Configure networking](#configure-networking)
-6. [Access your newly created VM](#access-your-newly-created-vm)
+    1. [Customize VM Hardware](#customize-vm-hardware)
+    2. [Configure Networking](#configure-networking)
+6. [Access Your Newly created VM](#access-your-newly-created-vm)
     1. [Install gcloud command-line Tools](#install-gcloud-command-line-tools)
     2. [First-time Setup Script](#first-time-setup-script)
     3. [Using Jupyter Notebook with Google Compute Engine](#using-jupyter-notebook-with-google-compute-engine)
@@ -45,17 +46,18 @@ While [Colab](https://research.google.com/colaboratory/faq.html) is good for ass
 
 ## Create and Configure Your Account
 
-For the class project, we offer students **$50 GCP coupons** for each student to use Google Compute Engine for developing and testing your
-implementations. 
+**You should use your personal GMail account for GCP, i.e. NOT SUID@stanford.edu because Stanford University managed email accounts do not support creating a new project.** 
 
-If $50 ends up not being enough, contact course staff on Piazza. We will also send out forms for extra GCP credit request form later in the quarter.
+For the class project, we offer students **$50 GCP coupons** for each student to use Google Compute Engine for developing and testing your
+implementations. When you first sign up on GCP, you will have $300 free credits.
+
+If your credits ends up not being enough, contact course staff on Piazza. We will also send out forms for extra GCP credit request form later in the quarter.
  
 This tutorial lists the necessary steps of working on the projects using Google Cloud. **We expect this tutorial to take up to an hour. Don't get intimidated by the steps, we tried to make the tutorial detailed so that you are less likely to get stuck on a particular step. Please tag all questions related to Google Cloud with google_cloud on Piazza.**
 
-### Sign Up GCP for the First Time
-You can skip this section if you already have a Google Cloud account set up with **your personal gmail account**. **You should use your personal gmail account, i.e. NOT SUID@stanford.edu because Stanford University managed email accounts do not support creating a new project.** 
+### Sign Up GCP for the First Time with Personal GMail
 
-If you don't have a Google Cloud account with your Stanford email already, you should receive $300 credits from Google by default when you first sign up and **also upgrade it into a full account**. Please try to use the resources judiciously. 
+You should receive $300 credits from Google when you first sign up and **also UPGRADE it into a full account**. Please try to use the resources judiciously. 
 
 1. Create Google Cloud account by going to the [Google Cloud homepage](https://cloud.google.com/?utm_source=google&utm_medium=cpc&utm_campaign=2015-q2-cloud-na-gcp-skws-freetrial-en&gclid=CP2e4PPpiNMCFU9bfgodGHsA1A "Title"). Click on the blue **Get Started for free** button. Sign into your Gmail account. Here is an illustrative example.
 ![](.img/launching-screen.png)
@@ -81,7 +83,7 @@ If you don't have a Google Cloud account with your Stanford email already, you s
 ## Claim CS231N GCP credits 
 NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **HOWEVER, the GCP account should still be registered with your personal gmail account, because Stanford University managed account does not support creating a new project.** 
 
-1. We will release the $50 GCP credits Google form on Piazza. After your complete the form, you will see a link to Google Cloud Education Grants page. You will need your stanford email account to receive the credits.
+1. We will release the $50 GCP credits Google form on Piazza. After your complete the form, you will see a link to Google Cloud Education Grants page. **It requires your stanford email to receive the credits**. (These credits can be **applied to your GCP account registered with personal GMail**. )
 ![](/.img/get-coupon.png)
 
 2. After submission, you should receive a email from GCP with a link to confirm your email address. Click the link to verify your email.
@@ -103,21 +105,28 @@ Your account typically does not come with GPU quota. You have to explicitly requ
 ![](.img/gpu-all-regions.png)
 
  Wait until GCP send you a second email (first email is just to notify they receive the request) that looks like this. It could take couple minutes to couple days for them to approve.
- ![](.img/gpu-quota-approved.png) 
+![](.img/gpu-quota-approved.png) 
 
-2. You should adjust your region-specific GPU (usually it is already 1 by default) if you want more than 1 GPU in your instance. You can filter by the **Metric** and **Location** to set the type of GPU and your region.
+2. You should adjust your region-specific GPU (usually it is already 1 by default) if you want more than 1 GPU in your VM instance for multi-GPU training. You can filter by the **Metric** and **Location** to set the type of GPU and your region.
 ![](.img/gpu-region.png)
 
-FAQ: 
-**_Why don't I see any GPU-related quotas when I follow the instructions to filter for them?_**. 
-Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Some zones do not have GPU resources.Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing) to find the availability of GPU resources. 
+### Why don't I See Any GPU-related Quota
 
-If you do not see any GPU-related quotas at all. Make sure you first upgrade your free tier account to full account. 
+1. First, make sure you first upgrade your free tier account to full account following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade))
+
+2. If you just registered a Google Cloud account, GCP can be slow on set up its Compute Engine API services - this is the service that provides GPU access so the GPU quota won't show up before it is ready. 
+One way I found that can push GCP to set up Compute Engine API faster is by visiting the VM instance page. 
+![](.img/go-to-vm-instance.png)
+If you see that Compute Engine is not ready yet, wait for couple minutes until you see something like this screenshot below. The GPU-related Quota should now show up in  **IAM Admin** > **Quotas**. 
+![](.img/vm-instance-ready.png)
+
+3. For region-specific GPUs: not all GPUs Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Some zones do not have GPU resources.Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing) to find the availability of GPU resources. 
+
 
 More instructions at [General quota instructions](https://cloud.google.com/compute/quotas#requesting_additional_quota) and [Step-by-step GPU-specific walk-through](https://stackoverflow.com/questions/45227064/how-to-request-gpu-quota-increase-in-google-cloud) (all answers in the link are useful)
 
 
-## Set Up Google Cloud VM Image <a name="set-up-google-cloud-vm-image"></a>
+## Set Up Google Cloud VM Image
 
 1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You may (or may not) be taken to a page where you have to click on "Launch", and then you should see a configuration sheet with the title "New Deep Learning VM deployment".
 2. Fill in `Deployment name` field with your preferred VM name.
@@ -134,7 +143,7 @@ More instructions at [General quota instructions](https://cloud.google.com/compu
 Your configuration sheet should look similar to below. Follow exactly the same configuration for the ones with red boxes. For configurations with orange boxes, you can adjust it based on your project need as discussed below. 
 ![](.img/vm-config.png)
 
-### Customize VM hardware <a name="customize-vm-hardware"></a>
+### Customize VM Hardware 
 
 You can always change number of CPUs, number of GPUs, CPU memory, and GPU type after your VM has been created.
 
@@ -149,7 +158,7 @@ You can always change number of CPUs, number of GPUs, CPU memory, and GPU type a
 
 <img src=".img/machine-typ.png" width="50%">
 
-### Configure networking <a name="configure-networking"></a>
+### Configure Networking
 
 Wait until the deployment is finished. You should see a running VM with a green checkmark next to it on your [Compute Engine page](https://console.cloud.google.com/compute/).
 
@@ -177,7 +186,7 @@ Firewall Rules:
 <img src=".img/firewall.png" width="70%">
 
 
-## Access your newly created VM 
+## Access Your Newly Created VM 
 
 Now that you have created your virtual GCE, you want to be able to connect to it from your computer. The rest of this tutorial goes over how to do that using the command line. 
 
@@ -236,7 +245,7 @@ Take note of your Static IP address (circled on the screenshot below). We use 35
 ![](.img/networking-external-ip-address.png)
 
 
-#### Launching and connecting to Jupyter Notebook
+#### Launching and Connecting to Jupyter Notebook
 
 After you ssh into your VM using the prior instructions, run Jupyter notebook from the folder with your assignment files.
 
