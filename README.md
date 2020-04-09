@@ -3,15 +3,6 @@
 (Last Update on April 8, 2020)
 
 
-## Before We Begin ##
-### BIG REMINDER: Make sure you stop your instances! ###
-
-(We know you won't read until the very bottom once your assignment is running, so we are printing this at the top too since it is ***super important***)
-
-Don't forget to ***stop your instance*** when you are done (by clicking on the stop button at the top of the page showing your instances), otherwise you will ***run out of credits*** and that will be very sad. :(
-
-If you follow our instructions below correctly, you should be able to restart your instance and the downloaded software will still be available.
-
 # Table of contents
 
 1. [Overview](#overview)
@@ -24,6 +15,14 @@ If you follow our instructions below correctly, you should be able to restart yo
     1. [Customize VM hardware](#customize-vm-hardware)
     2. [Configure networking](#configure-networking)
 6. [Access your newly created VM](#access-your-newly-created-vm)
+    1. [Install gcloud command-line tools](#install-gcloud-command-line-tools)
+    2. [First-time Setup Script](#first-time-setup-script)
+    3. [Using Jupyter Notebook with Google Compute Engine](#using-jupyter-notebook-with-google-compute-engine)
+7. [Remote Server Development](#remote-server-development)
+    1. [Transferring Files From Your Instance To Your Computer](#transferring-files-from-your-instance-to-your-computer)
+    2. [Other Tips](#other-tips)
+    
+
 ## Overview <a name="overview"></a>
 
 For your class project, we recommend setting up a GPU instance on GCP (Google Cloud Platform).
@@ -34,6 +33,13 @@ While [Colab](https://research.google.com/colaboratory/faq.html) is good for ass
 - Colab does not innately support real-time collaboration.
 - You can choose your GPU models and can set >1 GPUs for distributed training on GCP.
 
+### BIG REMINDER: Make sure you stop your instances! ###
+
+(We know you won't read until the very bottom once your assignment is running, so we are printing this at the top too since it is ***super important***)
+
+Don't forget to ***stop your instance*** when you are done (by clicking on the stop button at the top of the page showing your instances), otherwise you will ***run out of credits*** and that will be very sad. :(
+
+If you follow our instructions below correctly, you should be able to restart your instance and the downloaded software will still be available.
 
 
 ## Create and Configure Your Account  <a name="create-and-configure-your-account"></a>
@@ -188,7 +194,7 @@ gcloud compute --project "<YOUR_PROJECT_ID>" ssh --zone "us-west1-b" "<YOUR_VM_N
 ![](.img/connect-to-vm.png)
 
 
-## First-time Setup Script
+### First-time Setup Script
 
 After you SSH into the VM for the first time, you need to run a few commands in your home directory. You will be asked to set up a password for your Jupyter notebook.
 ```bash
@@ -198,7 +204,7 @@ chmod +x ./setup.sh
 ./setup.sh
 ```
 
-### Verification
+#### Verification
 
 If you have GPU enabled, you should be able to:
 
@@ -206,10 +212,10 @@ If you have GPU enabled, you should be able to:
 * inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
 * If you want to use Tensorflow 2.0, run `python test_tf.py`. The script will show you the installed Tensorflow version (2.0.0-alpha) and then run a sample MNIST training. You should see around 97% accuracy at the end.  
 
-## Using Jupyter Notebook with Google Compute Engine ##
+### Using Jupyter Notebook with Google Compute Engine 
 You can also use Jupyter Notebook to experiment in your projects. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
 
-### Getting a Static IP Address ###
+#### Getting a Static IP Address ###
 Change the External IP address of your Google Cloud Engine instance to be static (see screenshot below).
 
 ![](.img/external-ip.png)
@@ -229,7 +235,23 @@ Take note of your Static IP address (circled on the screenshot below). We use 35
 ![](.img/networking-external-ip-address.png)
 
 
-## Transferring Files From Your Instance To Your Computer ##
+#### Launching and connecting to Jupyter Notebook
+
+After you ssh into your VM using the prior instructions, run Jupyter notebook from the folder with your assignment files.
+
+```
+jupyter notebook
+```
+
+The default port is `8888`, specified in `~/.jupyter/jupyter_notebook_config.py`.
+
+You can connect to your Jupyter session from your personal laptop. Open any browser and visit `35.185.240.182:8888`. The login password is the one you set with the setup script above.
+
+
+## Remote Server Development
+
+
+### Transferring Files From Your Instance To Your Computer
 
 For instance, to transfer `file.zip` from GCE instance to your local laptop. There is an [easy command](https://cloud.google.com/sdk/gcloud/reference/compute/scp) for this purpose:
 
@@ -254,32 +276,15 @@ If you would like to transfer an entire folder, you will need to add a resursive
 gcloud compute scp --resursive /my/local/folder tonystark@cs231:/home/shared/
 ```
 
-
-
-### Remote Server Development ###
-
-
-Use [Tmux](https://linuxize.com/post/getting-started-with-tmux/) to keep the training sessions running when you close your laptop. Also, if your collaborators log into the same account on the VM instance, they will see the same tmux session screen in real time. 
+### Other Tips
+You can use [Tmux](https://linuxize.com/post/getting-started-with-tmux/) to keep the training sessions running when you close your laptop. Also, if your collaborators log into the same account on the VM instance, they will see the same tmux session screen in real time. 
 
 You can develop your code on remote server directly if you are comfortable with vim or emac.
 
-Alternatively, you can develop locally on your favorite editor, push to your branch on Github, and pull on remote server to run.
+You can develop locally on your favorite editor, push to your branch on Github, and pull on remote server to run.
 (git commit frequently is also one of [good Github practices](https://www.datree.io/resources/github-best-practices))
 
- 
-### Launching and connecting to Jupyter Notebook ###
-
-After you ssh into your VM using the prior instructions, run Jupyter notebook from the folder with your assignment files.
-
-```
-jupyter notebook
-```
-
-The default port is `8888`, specified in `~/.jupyter/jupyter_notebook_config.py`.
-
-You can connect to your Jupyter session from your personal laptop. Open any browser and visit `35.185.240.182:8888`. The login password is the one you set with the setup script above.
-
-
+Besides `gcloud compute scp`, another tool you can check out is [rsync](https://linuxize.com/post/how-to-use-rsync-for-local-and-remote-data-transfer-and-synchronization/) which can synchronize files and folders between your local machine and remote server. 
 
 
 ## BIG REMINDER: Make sure you stop your instances! ##
