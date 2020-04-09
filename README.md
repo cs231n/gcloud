@@ -2,6 +2,7 @@
 
 (Last Update on April 8, 2020)
 
+
 ## Before We Begin ##
 ### BIG REMINDER: Make sure you stop your instances! ###
 
@@ -11,8 +12,19 @@ Don't forget to ***stop your instance*** when you are done (by clicking on the s
 
 If you follow our instructions below correctly, you should be able to restart your instance and the downloaded software will still be available.
 
+# Table of contents
 
-### Should I use GCP or Colab? ###
+1. [Overview](#overview)
+2. [Create and Configure Your Account](#create-and-configure-your-account)
+    1. [Sign Up GCP for the First Time](#sign-up-gcp-for-the-first-time)
+    2. [Configure Your Project](#configure-your-project)
+3. [Claim CS231N GCP credits](#claim-cs231n-gcp-credits)
+4. [Request an increase in GPU quota](#request-an-increase-in-gpu-quota)  
+5. [Set Up Google Cloud VM Image](#set-up-google-cloud-vm-image)
+    1. [Customize VM hardware](#customize-vm-hardware)
+    2. [Configure networking](#configure-networking)
+6. [Access your newly created VM](#access-your-newly-created-vm)
+## Overview <a name="overview"></a>
 
 For your class project, we recommend setting up a GPU instance on GCP (Google Cloud Platform).
 
@@ -24,7 +36,7 @@ While [Colab](https://research.google.com/colaboratory/faq.html) is good for ass
 
 
 
-## Create and Configure Your Account ##
+## Create and Configure Your Account  <a name="create-and-configure-your-account"></a>
 
 For the class project, we offer students **$50 GCP coupons** for each student to use Google Compute Engine for developing and testing your
 implementations. 
@@ -33,8 +45,8 @@ If $50 ends up not being enough, contact course staff on Piazza. We will also se
  
 This tutorial lists the necessary steps of working on the projects using Google Cloud. **We expect this tutorial to take up to an hour. Don't get intimidated by the steps, we tried to make the tutorial detailed so that you are less likely to get stuck on a particular step. Please tag all questions related to Google Cloud with google_cloud on Piazza.**
 
-### Sign Up GCP for the first time ### 
-You can skip this section if you already have a Google Cloud account set up with your personal gmail account. ** You should use your own gmail account, i.e. NOT SUID@stanford.edu because Stanford University managed account does not support creating a new project.** 
+### Sign Up GCP for the First Time <a name="sign-up-gcp-for-the-first-time"></a>
+You can skip this section if you already have a Google Cloud account set up with **your personal gmail account**. **You should use your personal gmail account, i.e. NOT SUID@stanford.edu because Stanford University managed email accounts do not support creating a new project.** 
 
 If you don't have a Google Cloud account with your Stanford email already, you should receive $300 credits from Google by default when you first sign up and **also upgrade it into a full account**. Please try to use the resources judiciously. 
 
@@ -47,18 +59,20 @@ If you don't have a Google Cloud account with your Stanford email already, you s
 3. Click the "Google Cloud Platform" (in red circle), and it will take you to the main project dashboard:
 ![](.img/welcome-screen.png)
 
-4. On the main project dashboard, you can change the name of your project by clicking **Go to project settings**. 
+### Configure Your Project <a name="configure-your-project"></a>
+
+1. On the main project dashboard, you can change the name of your project by clicking **Go to project settings**. 
 ![](.img/dashboard-screen.png)
 
-5. To add project collaborators, click **ADD PEOPLE TO THIS PROJECT**. Add their email and make their role owners. 
+2. To add project collaborators, click **ADD PEOPLE TO THIS PROJECT**. Add their email and make their role owners. 
 ![](/.img/add-people.png)
 
-6. **Upgrade your account** in order to use GPUs following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade). Otherwise [Google Cloud Free Tier](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade) does not come with GPU support or quota.
+3. **Upgrade your account** in order to use GPUs following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade). Otherwise [Google Cloud Free Tier](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade) does not come with GPU support or quota.
 ![](/.img/upgrade-1.png)
 ![](/.img/upgrade-2.png)
 
-## Claim CS231N GCP credits
-NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **BUT the GCP account should be registered with your own gmail account, because Stanford University managed account does not support creating a new project.** 
+## Claim CS231N GCP credits <a name="claim-cs231n-gcp-credits"></a>
+NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **HOWEVER, the GCP account should still be registered with your personal gmail account, because Stanford University managed account does not support creating a new project.** 
 
 1. We will release the $50 GCP credits Google form on Piazza. After your complete the form, you will see a link to Google Cloud Education Grants page. You will need your stanford email account to receive the credits.
 ![](/.img/get-coupon.png)
@@ -70,7 +84,7 @@ NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **BUT t
 ![](/.img/accept-credits.png)
 ![](/.img/billing-page.png)
 
-## Request an increase in GPU quota
+## Request an increase in GPU quota <a name="request-an-increase-in-gpu-quota"></a>
 
 Your account typically does not come with GPU quota. You have to explicitly request for it under **IAM Admin** > **Quotas**. 
 
@@ -96,7 +110,7 @@ If you do not see any GPU-related quotas at all. Make sure you first upgrade you
 More instructions at [General quota instructions](https://cloud.google.com/compute/quotas#requesting_additional_quota) and [Step-by-step GPU-specific walk-through](https://stackoverflow.com/questions/45227064/how-to-request-gpu-quota-increase-in-google-cloud) (all answers in the link are useful)
 
 
-## Google Cloud VM Image
+## Set Up Google Cloud VM Image <a name="set-up-google-cloud-vm-image"></a>
 
 1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You may (or may not) be taken to a page where you have to click on "Launch", and then you should see a configuration sheet with the title "New Deep Learning VM deployment".
 2. Fill in `Deployment name` field with your preferred VM name.
@@ -113,7 +127,7 @@ More instructions at [General quota instructions](https://cloud.google.com/compu
 Your configuration sheet should look similar to below. Follow exactly the same configuration for the ones with red boxes. For configurations with orange boxes, you can adjust it based on your project need as discussed below. 
 ![](.img/vm-config.png)
 
-### Customize VM hardware
+### Customize VM hardware <a name="customize-vm-hardware"></a>
 
 You can always change number of CPUs, number of GPUs, CPU memory, and GPU type after your VM has been created.
 
@@ -128,7 +142,7 @@ You can always change number of CPUs, number of GPUs, CPU memory, and GPU type a
 
 <img src=".img/machine-typ.png" width="50%">
 
-### Configure networking
+### Configure networking <a name="configure-networking"></a>
 
 Wait until the deployment is finished. You should see a running VM with a green checkmark next to it on your [Compute Engine page](https://console.cloud.google.com/compute/).
 
@@ -156,7 +170,7 @@ Firewall Rules:
 <img src=".img/firewall.png" width="70%">
 
 
-## Access your newly created VM
+## Access your newly created VM 
 
 Now that you have created your virtual GCE, you want to be able to connect to it from your computer. The rest of this tutorial goes over how to do that using the command line. 
 
