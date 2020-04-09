@@ -10,12 +10,12 @@
     1. [Sign Up GCP for the First Time](#sign-up-gcp-for-the-first-time)
     2. [Configure Your Project](#configure-your-project)
 3. [Claim CS231N GCP credits](#claim-cs231n-gcp-credits)
-4. [Request an increase in GPU quota](#request-an-increase-in-gpu-quota)  
+4. [Request an Increase in GPU Quota](#request-an-increase-in-gpu-quota)  
 5. [Set Up Google Cloud VM Image](#set-up-google-cloud-vm-image)
     1. [Customize VM hardware](#customize-vm-hardware)
     2. [Configure networking](#configure-networking)
 6. [Access your newly created VM](#access-your-newly-created-vm)
-    1. [Install gcloud command-line tools](#install-gcloud-command-line-tools)
+    1. [Install gcloud command-line Tools](#install-gcloud-command-line-tools)
     2. [First-time Setup Script](#first-time-setup-script)
     3. [Using Jupyter Notebook with Google Compute Engine](#using-jupyter-notebook-with-google-compute-engine)
 7. [Remote Server Development](#remote-server-development)
@@ -23,17 +23,11 @@
     2. [Other Tips](#other-tips)
     
 
-## Overview <a name="overview"></a>
+## Overview 
 
 For your class project, we recommend setting up a GPU instance on GCP (Google Cloud Platform).
 
-While [Colab](https://research.google.com/colaboratory/faq.html) is good for assignments, and is a helpful free tool to play around and experiment models for your project, you will find a dedicated GPU instance easier to train models:
-- Colab will disconnect after 12 hours or ~30 min of idling (and you will lose your unsaved data). A GCP VM instance will not disconnect untill you stop it (or run out of credits).  
-- A GCP VM instance's disk space allows you to deal with larger datasets. In Colab's case, you will have to save all your data and models to Google Drive.
-- Colab does not innately support real-time collaboration.
-- You can choose your GPU models and can set >1 GPUs for distributed training on GCP.
-
-### BIG REMINDER: Make sure you stop your instances! ###
+### BIG REMINDER: Make sure you stop your instances! 
 
 (We know you won't read until the very bottom once your assignment is running, so we are printing this at the top too since it is ***super important***)
 
@@ -41,8 +35,15 @@ Don't forget to ***stop your instance*** when you are done (by clicking on the s
 
 If you follow our instructions below correctly, you should be able to restart your instance and the downloaded software will still be available.
 
+### Colab vs GCP 
 
-## Create and Configure Your Account  <a name="create-and-configure-your-account"></a>
+While [Colab](https://research.google.com/colaboratory/faq.html) is good for assignments, and  is still a helpful and free tool for experimentation for your project, you will likely need a dedicated GPU instance when you start training on large datasets and collaborating as a team:
+- Colab will disconnect after 12 hours or ~30 min of idling (and you will lose your unsaved data). A GCP VM instance will not disconnect untill you stop it (or run out of credits).  
+- A GCP VM instance's disk space allows you to deal with larger datasets. In Colab's case, you will have to save all your data and models to Google Drive.
+- Colab does not innately support real-time collaboration.
+- You can choose your GPU models and can set >1 GPUs for distributed training on GCP.
+
+## Create and Configure Your Account
 
 For the class project, we offer students **$50 GCP coupons** for each student to use Google Compute Engine for developing and testing your
 implementations. 
@@ -51,7 +52,7 @@ If $50 ends up not being enough, contact course staff on Piazza. We will also se
  
 This tutorial lists the necessary steps of working on the projects using Google Cloud. **We expect this tutorial to take up to an hour. Don't get intimidated by the steps, we tried to make the tutorial detailed so that you are less likely to get stuck on a particular step. Please tag all questions related to Google Cloud with google_cloud on Piazza.**
 
-### Sign Up GCP for the First Time <a name="sign-up-gcp-for-the-first-time"></a>
+### Sign Up GCP for the First Time
 You can skip this section if you already have a Google Cloud account set up with **your personal gmail account**. **You should use your personal gmail account, i.e. NOT SUID@stanford.edu because Stanford University managed email accounts do not support creating a new project.** 
 
 If you don't have a Google Cloud account with your Stanford email already, you should receive $300 credits from Google by default when you first sign up and **also upgrade it into a full account**. Please try to use the resources judiciously. 
@@ -65,7 +66,7 @@ If you don't have a Google Cloud account with your Stanford email already, you s
 3. Click the "Google Cloud Platform" (in red circle), and it will take you to the main project dashboard:
 ![](.img/welcome-screen.png)
 
-### Configure Your Project <a name="configure-your-project"></a>
+### Configure Your Project 
 
 1. On the main project dashboard, you can change the name of your project by clicking **Go to project settings**. 
 ![](.img/dashboard-screen.png)
@@ -77,7 +78,7 @@ If you don't have a Google Cloud account with your Stanford email already, you s
 ![](/.img/upgrade-1.png)
 ![](/.img/upgrade-2.png)
 
-## Claim CS231N GCP credits <a name="claim-cs231n-gcp-credits"></a>
+## Claim CS231N GCP credits 
 NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **HOWEVER, the GCP account should still be registered with your personal gmail account, because Stanford University managed account does not support creating a new project.** 
 
 1. We will release the $50 GCP credits Google form on Piazza. After your complete the form, you will see a link to Google Cloud Education Grants page. You will need your stanford email account to receive the credits.
@@ -90,7 +91,7 @@ NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **HOWEV
 ![](/.img/accept-credits.png)
 ![](/.img/billing-page.png)
 
-## Request an increase in GPU quota <a name="request-an-increase-in-gpu-quota"></a>
+## Request an Increase in GPU Quota
 
 Your account typically does not come with GPU quota. You have to explicitly request for it under **IAM Admin** > **Quotas**. 
 
@@ -180,7 +181,7 @@ Firewall Rules:
 
 Now that you have created your virtual GCE, you want to be able to connect to it from your computer. The rest of this tutorial goes over how to do that using the command line. 
 
-### Install gcloud command-line tools
+### Install gcloud command-line Tools
 To access [gcloud commands](https://cloud.google.com/sdk/gcloud/reference) in your local terminal, install [Google Cloud SDK](https://cloud.google.com/sdk/docs) that is appropriate for your platform and follow their instructions. 
 
 If `gcloud` command is not in your system path after installation, you can also reference it by its full path `/<DIRECTORY-WHERE-GOOGLE-CLOUD-IS-INSTALLED>/bin/gcloud`. See [this page](https://cloud.google.com/compute/docs/instances/connecting-to-instance "Title") for more detailed instructions.
