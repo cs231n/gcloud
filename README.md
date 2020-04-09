@@ -2,8 +2,32 @@
 
 (Last Update on April 8, 2020)
 
-## Before We Begin ##
-### BIG REMINDER: Make sure you stop your instances! ###
+
+# Table of contents
+
+1. [Overview](#overview)
+2. [Create and Configure Your Account](#create-and-configure-your-account)
+    1. [Sign Up GCP for the First Time](#sign-up-gcp-for-the-first-time)
+    2. [Configure Your Project](#configure-your-project)
+3. [Claim CS231N GCP credits](#claim-cs231n-gcp-credits)
+4. [Request an Increase in GPU Quota](#request-an-increase-in-gpu-quota)  
+5. [Set Up Google Cloud VM Image](#set-up-google-cloud-vm-image)
+    1. [Customize VM hardware](#customize-vm-hardware)
+    2. [Configure networking](#configure-networking)
+6. [Access your newly created VM](#access-your-newly-created-vm)
+    1. [Install gcloud command-line Tools](#install-gcloud-command-line-tools)
+    2. [First-time Setup Script](#first-time-setup-script)
+    3. [Using Jupyter Notebook with Google Compute Engine](#using-jupyter-notebook-with-google-compute-engine)
+7. [Remote Server Development](#remote-server-development)
+    1. [Transferring Files From Your Instance To Your Computer](#transferring-files-from-your-instance-to-your-computer)
+    2. [Other Tips](#other-tips)
+    
+
+## Overview 
+
+For your class project, we recommend setting up a GPU instance on GCP (Google Cloud Platform).
+
+### BIG REMINDER: Make sure you stop your instances! 
 
 (We know you won't read until the very bottom once your assignment is running, so we are printing this at the top too since it is ***super important***)
 
@@ -11,20 +35,15 @@ Don't forget to ***stop your instance*** when you are done (by clicking on the s
 
 If you follow our instructions below correctly, you should be able to restart your instance and the downloaded software will still be available.
 
+### Colab vs GCP 
 
-### Should I use GCP or Colab? ###
-
-For your class project, we recommend setting up a GPU instance on GCP (Google Cloud Platform).
-
-While [Colab](https://research.google.com/colaboratory/faq.html) is good for assignments, and is a helpful free tool to play around and experiment models for your project, you will find a dedicated GPU instance easier to train models:
+While [Colab](https://research.google.com/colaboratory/faq.html) is good for assignments, and  is still a helpful and free tool for experimentation for your project, you will likely need a dedicated GPU instance when you start training on large datasets and collaborating as a team:
 - Colab will disconnect after 12 hours or ~30 min of idling (and you will lose your unsaved data). A GCP VM instance will not disconnect untill you stop it (or run out of credits).  
 - A GCP VM instance's disk space allows you to deal with larger datasets. In Colab's case, you will have to save all your data and models to Google Drive.
 - Colab does not innately support real-time collaboration.
 - You can choose your GPU models and can set >1 GPUs for distributed training on GCP.
 
-
-
-## Create and Configure Your Account ##
+## Create and Configure Your Account
 
 For the class project, we offer students **$50 GCP coupons** for each student to use Google Compute Engine for developing and testing your
 implementations. 
@@ -33,8 +52,8 @@ If $50 ends up not being enough, contact course staff on Piazza. We will also se
  
 This tutorial lists the necessary steps of working on the projects using Google Cloud. **We expect this tutorial to take up to an hour. Don't get intimidated by the steps, we tried to make the tutorial detailed so that you are less likely to get stuck on a particular step. Please tag all questions related to Google Cloud with google_cloud on Piazza.**
 
-### Sign Up GCP for the first time ### 
-You can skip this section if you already have a Google Cloud account set up with your personal gmail account. ** You should use your own gmail account, i.e. NOT SUID@stanford.edu because Stanford University managed account does not support creating a new project.** 
+### Sign Up GCP for the First Time
+You can skip this section if you already have a Google Cloud account set up with **your personal gmail account**. **You should use your personal gmail account, i.e. NOT SUID@stanford.edu because Stanford University managed email accounts do not support creating a new project.** 
 
 If you don't have a Google Cloud account with your Stanford email already, you should receive $300 credits from Google by default when you first sign up and **also upgrade it into a full account**. Please try to use the resources judiciously. 
 
@@ -47,18 +66,20 @@ If you don't have a Google Cloud account with your Stanford email already, you s
 3. Click the "Google Cloud Platform" (in red circle), and it will take you to the main project dashboard:
 ![](.img/welcome-screen.png)
 
-4. On the main project dashboard, you can change the name of your project by clicking **Go to project settings**. 
+### Configure Your Project 
+
+1. On the main project dashboard, you can change the name of your project by clicking **Go to project settings**. 
 ![](.img/dashboard-screen.png)
 
-5. To add project collaborators, click **ADD PEOPLE TO THIS PROJECT**. Add their email and make their role owners. 
+2. To add project collaborators, click **ADD PEOPLE TO THIS PROJECT**. Add their email and make their role owners. 
 ![](/.img/add-people.png)
 
-6. **Upgrade your account** in order to use GPUs following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade). Otherwise [Google Cloud Free Tier](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade) does not come with GPU support or quota.
+3. **Upgrade your account** in order to use GPUs following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade). Otherwise [Google Cloud Free Tier](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade) does not come with GPU support or quota.
 ![](/.img/upgrade-1.png)
 ![](/.img/upgrade-2.png)
 
-## Claim CS231N GCP credits
-NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **BUT the GCP account should be registered with your own gmail account, because Stanford University managed account does not support creating a new project.** 
+## Claim CS231N GCP credits 
+NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **HOWEVER, the GCP account should still be registered with your personal gmail account, because Stanford University managed account does not support creating a new project.** 
 
 1. We will release the $50 GCP credits Google form on Piazza. After your complete the form, you will see a link to Google Cloud Education Grants page. You will need your stanford email account to receive the credits.
 ![](/.img/get-coupon.png)
@@ -70,7 +91,7 @@ NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **BUT t
 ![](/.img/accept-credits.png)
 ![](/.img/billing-page.png)
 
-## Request an increase in GPU quota
+## Request an Increase in GPU Quota
 
 Your account typically does not come with GPU quota. You have to explicitly request for it under **IAM Admin** > **Quotas**. 
 
@@ -96,7 +117,7 @@ If you do not see any GPU-related quotas at all. Make sure you first upgrade you
 More instructions at [General quota instructions](https://cloud.google.com/compute/quotas#requesting_additional_quota) and [Step-by-step GPU-specific walk-through](https://stackoverflow.com/questions/45227064/how-to-request-gpu-quota-increase-in-google-cloud) (all answers in the link are useful)
 
 
-## Google Cloud VM Image
+## Set Up Google Cloud VM Image <a name="set-up-google-cloud-vm-image"></a>
 
 1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You may (or may not) be taken to a page where you have to click on "Launch", and then you should see a configuration sheet with the title "New Deep Learning VM deployment".
 2. Fill in `Deployment name` field with your preferred VM name.
@@ -113,7 +134,7 @@ More instructions at [General quota instructions](https://cloud.google.com/compu
 Your configuration sheet should look similar to below. Follow exactly the same configuration for the ones with red boxes. For configurations with orange boxes, you can adjust it based on your project need as discussed below. 
 ![](.img/vm-config.png)
 
-### Customize VM hardware
+### Customize VM hardware <a name="customize-vm-hardware"></a>
 
 You can always change number of CPUs, number of GPUs, CPU memory, and GPU type after your VM has been created.
 
@@ -128,7 +149,7 @@ You can always change number of CPUs, number of GPUs, CPU memory, and GPU type a
 
 <img src=".img/machine-typ.png" width="50%">
 
-### Configure networking
+### Configure networking <a name="configure-networking"></a>
 
 Wait until the deployment is finished. You should see a running VM with a green checkmark next to it on your [Compute Engine page](https://console.cloud.google.com/compute/).
 
@@ -156,11 +177,11 @@ Firewall Rules:
 <img src=".img/firewall.png" width="70%">
 
 
-## Access your newly created VM
+## Access your newly created VM 
 
 Now that you have created your virtual GCE, you want to be able to connect to it from your computer. The rest of this tutorial goes over how to do that using the command line. 
 
-### Install gcloud command-line tools
+### Install gcloud command-line Tools
 To access [gcloud commands](https://cloud.google.com/sdk/gcloud/reference) in your local terminal, install [Google Cloud SDK](https://cloud.google.com/sdk/docs) that is appropriate for your platform and follow their instructions. 
 
 If `gcloud` command is not in your system path after installation, you can also reference it by its full path `/<DIRECTORY-WHERE-GOOGLE-CLOUD-IS-INSTALLED>/bin/gcloud`. See [this page](https://cloud.google.com/compute/docs/instances/connecting-to-instance "Title") for more detailed instructions.
@@ -174,7 +195,7 @@ gcloud compute --project "<YOUR_PROJECT_ID>" ssh --zone "us-west1-b" "<YOUR_VM_N
 ![](.img/connect-to-vm.png)
 
 
-## First-time Setup Script
+### First-time Setup Script
 
 After you SSH into the VM for the first time, you need to run a few commands in your home directory. You will be asked to set up a password for your Jupyter notebook.
 ```bash
@@ -184,7 +205,7 @@ chmod +x ./setup.sh
 ./setup.sh
 ```
 
-### Verification
+#### Verification
 
 If you have GPU enabled, you should be able to:
 
@@ -192,10 +213,10 @@ If you have GPU enabled, you should be able to:
 * inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
 * If you want to use Tensorflow 2.0, run `python test_tf.py`. The script will show you the installed Tensorflow version (2.0.0-alpha) and then run a sample MNIST training. You should see around 97% accuracy at the end.  
 
-## Using Jupyter Notebook with Google Compute Engine ##
+### Using Jupyter Notebook with Google Compute Engine 
 You can also use Jupyter Notebook to experiment in your projects. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
 
-### Getting a Static IP Address ###
+#### Getting a Static IP Address ###
 Change the External IP address of your Google Cloud Engine instance to be static (see screenshot below).
 
 ![](.img/external-ip.png)
@@ -215,7 +236,23 @@ Take note of your Static IP address (circled on the screenshot below). We use 35
 ![](.img/networking-external-ip-address.png)
 
 
-## Transferring Files From Your Instance To Your Computer ##
+#### Launching and connecting to Jupyter Notebook
+
+After you ssh into your VM using the prior instructions, run Jupyter notebook from the folder with your assignment files.
+
+```
+jupyter notebook
+```
+
+The default port is `8888`, specified in `~/.jupyter/jupyter_notebook_config.py`.
+
+You can connect to your Jupyter session from your personal laptop. Open any browser and visit `35.185.240.182:8888`. The login password is the one you set with the setup script above.
+
+
+## Remote Server Development
+
+
+### Transferring Files From Your Instance To Your Computer
 
 For instance, to transfer `file.zip` from GCE instance to your local laptop. There is an [easy command](https://cloud.google.com/sdk/gcloud/reference/compute/scp) for this purpose:
 
@@ -240,32 +277,15 @@ If you would like to transfer an entire folder, you will need to add a resursive
 gcloud compute scp --resursive /my/local/folder tonystark@cs231:/home/shared/
 ```
 
-
-
-### Remote Server Development ###
-
-
-Use [Tmux](https://linuxize.com/post/getting-started-with-tmux/) to keep the training sessions running when you close your laptop. Also, if your collaborators log into the same account on the VM instance, they will see the same tmux session screen in real time. 
+### Other Tips
+You can use [Tmux](https://linuxize.com/post/getting-started-with-tmux/) to keep the training sessions running when you close your laptop. Also, if your collaborators log into the same account on the VM instance, they will see the same tmux session screen in real time. 
 
 You can develop your code on remote server directly if you are comfortable with vim or emac.
 
-Alternatively, you can develop locally on your favorite editor, push to your branch on Github, and pull on remote server to run.
+You can develop locally on your favorite editor, push to your branch on Github, and pull on remote server to run.
 (git commit frequently is also one of [good Github practices](https://www.datree.io/resources/github-best-practices))
 
- 
-### Launching and connecting to Jupyter Notebook ###
-
-After you ssh into your VM using the prior instructions, run Jupyter notebook from the folder with your assignment files.
-
-```
-jupyter notebook
-```
-
-The default port is `8888`, specified in `~/.jupyter/jupyter_notebook_config.py`.
-
-You can connect to your Jupyter session from your personal laptop. Open any browser and visit `35.185.240.182:8888`. The login password is the one you set with the setup script above.
-
-
+Besides `gcloud compute scp`, another tool you can check out is [rsync](https://linuxize.com/post/how-to-use-rsync-for-local-and-remote-data-transfer-and-synchronization/) which can synchronize files and folders between your local machine and remote server. 
 
 
 ## BIG REMINDER: Make sure you stop your instances! ##
