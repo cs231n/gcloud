@@ -156,13 +156,11 @@ Pay attention to the monthly price, make sure you claim only necessary HW resour
 ![](.img/vm-config.png)
 
 #### Change Configuration on Already Created VM Instances
-You can always change number of CPUs, number of GPUs, CPU memory, and GPU type **after your VM has been created**. 
+1. You can always change number of CPUs, number of GPUs, CPU memory, and GPU type **after your VM has been created**. 
 
-Just stop your instance, go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. 
+2. Just stop your instance, go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. 
 
-Click "edit" on your VM's page to modify the settings. 
-
-Finally click "Save"".
+3. Click "edit" on your VM's page to modify the settings. Finally click "Save".
 
 ### Configure Networking
 
@@ -203,7 +201,7 @@ To Do this, click on the 3 line icon next to the **Google Cloud Platform** butto
 
 To have a static IP address, change **Type** from **Ephemeral** to **Static**. Enter your prefered name for your static IP, ours is `cs231n-ip` (see screenshot below). And click on Reserve. 
 
-**NOTE:** At the end of CS 231N when you don't need your instance anymore, release the static IP address because Google charges a small fee for unused static IPs (according to [this page](https://jeffdelaney.me/blog/running-jupyter-notebook-google-cloud-platform/)).
+**NOTE:** At the end of CS 231N when you don't need your instance anymore, **release the static IP address because Google charges a small fee for unused static IPs** (according to [this page](https://jeffdelaney.me/blog/running-jupyter-notebook-google-cloud-platform/)).
 
 ![](.img/networking-external-ip-naming.png)
 
@@ -263,7 +261,7 @@ jupyter notebook
 
 The default port is `8888`, specified in `~/.jupyter/jupyter_notebook_config.py`.
 
-You can connect to your Jupyter session from your personal laptop. Open any browser and visit `35.185.240.182:8888`. The login password is the one you set with the setup script above.
+You can connect to your Jupyter session from your personal laptop. Check the external ip address of your instance, say it is `35.185.240.182`. Open any browser and visit `35.185.240.182:8888`. The login password is the one you set with the setup script above.
 
 
 ### Transferring Files From Your Instance To Your Computer
@@ -277,18 +275,18 @@ gcloud compute scp <user>@<instance-name>:/path/to/file.zip /local/path
 For example, to download files from our instance to the current folder:
 
 ```
-gcloud compute scp tonystark@cs231:/home/shared/file.zip .
+gcloud compute scp tonystark@cs231n/home/shared/file.zip .
 ```
 
 The transfer works in both directions. To upload a file to your instance:
 
 ```
-gcloud compute scp /my/local/file tonystark@cs231:/home/shared/
+gcloud compute scp /my/local/file tonystark@cs231n/home/shared/
 ```
 
 If you would like to transfer an entire folder, you will need to add a resursive flag: 
 ```
-gcloud compute scp --resursive /my/local/folder tonystark@cs231:/home/shared/
+gcloud compute scp --resursive /my/local/folder tonystark@cs231n/home/shared/
 ```
 
 ### Other Tips
