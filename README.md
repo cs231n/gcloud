@@ -288,7 +288,7 @@ gcloud compute scp /my/local/file tonystark@cs231n/home/shared/
 
 If you would like to transfer an entire folder, you will need to add a resursive flag: 
 ```
-gcloud compute scp --resursive /my/local/folder tonystark@cs231n/home/shared/
+gcloud compute scp --recursive /my/local/folder tonystark@cs231n/home/shared/
 ```
 
 ### Other Tips
