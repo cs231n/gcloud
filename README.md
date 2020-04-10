@@ -1,6 +1,6 @@
 # Google Cloud Setup and Tutorial
 
-(Last Update on April 8, 2020)
+(Last Update on April 9, 2020)
 
 
 # Table of contents
@@ -112,11 +112,13 @@ Your account typically does not come with GPU quota. You have to explicitly requ
 
 ### Why don't I See Any GPU-related Quota
 
-1. First, make sure you first upgrade your free tier account to full account following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade))
+1. First, make sure you first upgrade your free tier account to full account following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade).
 
-2. If you just registered a Google Cloud account, GCP can be slow on set up its Compute Engine API services - this is the service that provides GPU access so the GPU quota won't show up before it is ready. 
-One way I found that can push GCP to set up Compute Engine API faster is by visiting the VM instance page. 
+2. If you just registered a Google Cloud account, GCP can be slow on set up its Compute Engine API services (this is the service that provides GPU access so the GPU quota won't show up before it is ready). 
+
+One way I found that can make Compute Engine API setup faster is by visiting the VM instance page  **Compute Engine** > **VM instances**
 ![](.img/go-to-vm-instance.png)
+
 If you see that Compute Engine is not ready yet, wait for couple minutes until you see something like this screenshot below. The GPU-related Quota should now show up in  **IAM Admin** > **Quotas**. 
 ![](.img/vm-instance-ready.png)
 
