@@ -46,7 +46,7 @@ While [Colab](https://research.google.com/colaboratory/faq.html) is good for ass
 
 ## Create and Configure Your Account
 
-**You should use your personal GMail account for GCP, i.e. NOT SUID@stanford.edu because Stanford University managed email accounts do not support creating a new project.** 
+**You should use your personal GMail account for GCP, i.e. NOT SUID@stanford.edu, because Stanford University managed email accounts do not support creating a new project.** 
 
 For the class project, we offer students **$50 GCP coupons** for each student to use Google Compute Engine for developing and testing your
 implementations. When you first sign up on GCP, you will have $300 free credits.
@@ -55,9 +55,10 @@ If your credits ends up not being enough, contact course staff on Piazza. We wil
  
 This tutorial lists the necessary steps of working on the projects using Google Cloud. **We expect this tutorial to take up to an hour. Don't get intimidated by the steps, we tried to make the tutorial detailed so that you are less likely to get stuck on a particular step. Please tag all questions related to Google Cloud with google_cloud on Piazza.**
 
-### Sign Up GCP for the First Time with Personal GMail
+### Sign Up GCP for the First Time
 
-You should receive $300 credits from Google when you first sign up and **also UPGRADE it into a full account**. Please try to use the resources judiciously. 
+You should receive $300 credits from Google when you first sign up with **Personal GMail** and **also UPGRADE it into a full account**. 
+Please try to use the resources judiciously. 
 
 1. Create Google Cloud account by going to the [Google Cloud homepage](https://cloud.google.com/?utm_source=google&utm_medium=cpc&utm_campaign=2015-q2-cloud-na-gcp-skws-freetrial-en&gclid=CP2e4PPpiNMCFU9bfgodGHsA1A "Title"). Click on the blue **Get Started for free** button. Sign into your Gmail account. Here is an illustrative example.
 ![](.img/launching-screen.png)
@@ -81,12 +82,13 @@ You should receive $300 credits from Google when you first sign up and **also UP
 ![](/.img/upgrade-2.png)
 
 ## Claim CS231N GCP credits 
-NOTE: You can only receive CS231N credits with your <SUID>@stanford.edu, **HOWEVER, the GCP account should still be registered with your personal gmail account, because Stanford University managed account does not support creating a new project.** 
 
-1. We will release the $50 GCP credits Google form on Piazza. After your complete the form, you will see a link to Google Cloud Education Grants page. **It requires your stanford email to receive the credits**. (These credits can be **applied to your GCP account registered with personal GMail**. )
+NOTE: You should have created and logged in your GCP account registered with your personal gmail account by now. 
+
+1. We will release the $50 GCP credits Google form on Piazza. After your complete the form, you will see a link to Google Cloud Education Grants page. **It requires your Stanford email to receive the credits**. (These credits can be **applied to your GCP account registered with Personal GMail**. )
 ![](/.img/get-coupon.png)
 
-2. After submission, you should receive a email from GCP with a link to confirm your email address. Click the link to verify your email.
+2. After submission, you should receive a email from GCP with a link to confirm your email address. Click the link to verify your Stanford email.
 ![](/.img/email-confirmation.png)
 
 3. You will soon receive another email from GCP with a link that applys the $50 credits to your account. After that the website will jump to your [Billing](https://console.cloud.google.com/billing) page where you should see your have linked to CS231N billing account with $50 free credits. 
