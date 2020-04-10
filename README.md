@@ -122,7 +122,9 @@ One way I found that can make Compute Engine API setup faster is by visiting the
 If you see that Compute Engine is not ready yet, wait for couple minutes until you see something like this screenshot below. The GPU-related Quota should now show up in  **IAM Admin** > **Quotas**. 
 ![](.img/vm-instance-ready.png)
 
-3. For region-specific GPUs: not all GPUs Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Some zones do not have GPU resources.Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing) to find the availability of GPU resources. 
+3. For region-specific GPUs: not all GPUs Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Some zones do not have GPU resources.
+
+4. Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing) to find the availability of GPU resources. 
 
 
 More instructions at [General quota instructions](https://cloud.google.com/compute/quotas#requesting_additional_quota) and [Step-by-step GPU-specific walk-through](https://stackoverflow.com/questions/45227064/how-to-request-gpu-quota-increase-in-google-cloud) (all answers in the link are useful)
@@ -130,35 +132,32 @@ More instructions at [General quota instructions](https://cloud.google.com/compu
 
 ## Set Up Google Cloud VM Image
 
-1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You may (or may not) be taken to a page where you have to click on "Launch", and then you should see a configuration sheet with the title "New Deep Learning VM deployment".
-2. Fill in `Deployment name` field with your preferred VM name.
-3. In `Machine type` field, change `2 vCPUs` to `1 vCPU`. You can always add more CPUs later if necessary.
-4. In `GPUs` field, you can follow one of the two paths:
-    * (a) If you have successfully requested GPU quota, you should set `Number of GPUs` to `1`. **GPU drivers and CUDA will be automatically installed _only if_ you select at least 1 GPU**. For our first project, you don't need GPUs. Since GPUs are very expensive, you can add them back when they become necessary later.
-    * (b) If you don't have GPU quota yet, you must set `Number of GPUs` to `None`. WARNING: GPU drivers and CUDA will **NOT** be installed. All libraries will be CPU only. Once your GPU quota increase request is approved, you can follow path (a) to deploy a GPU-enabled image.
-5. In `Frameworks` field, change `TensorFlow Enterpris 2.1 (CUDA 10.1)` to `PyTorch 1.4 + fast.ai (CUDA 10.0`. We will have instructions for you later if you want Tensorflow.
-6. Check the box `Install NVIDIA GPU driver automatically on first startup?`.
-7. Check the box `Enable access to JupyterLab via URL instead of SSH. (Beta)`.
-8. Leave all other options as default.
-9. Click the blue botton `Deploy` at the end of the page.
-
-Your configuration sheet should look similar to below. Follow exactly the same configuration for the ones with red boxes. For configurations with orange boxes, you can adjust it based on your project need as discussed below. 
-![](.img/vm-config.png)
-
 ### Customize VM Hardware 
 
-You can always change number of CPUs, number of GPUs, CPU memory, and GPU type after your VM has been created.
-
-1. You must stop the instance first.
-2. Go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. Click "edit" on your VM's page.
+1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You may (or may not) be taken to a page where you have to click on "Launch", and then you should see a configuration sheet with the title "New Deep Learning VM deployment".
+2. Fill in `Deployment name` field with your preferred VM name.
 3. In `Machine type` box, click `Customize`.
 4. Choose your desired number of CPUs and memory. 
 5. Set `Number of GPUs` to `None` if you don't need GPUs.
-6. For `GPU type`, `NVIDIA Tesla K80` is typically enough. `P100` and `V100` are way more expensive, but also faster and has larger memory. Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing). 
-7. Scroll all the way down and click `Save` button.
-8. Start your instance again.
+6. For `GPU type`, `NVIDIA Tesla K80` is typically enough. `P100` and `V100` are way more expensive (check the price on the right), but also faster and has larger memory. Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing). 
+    **GPU drivers and CUDA will be automatically installed _only if_ you select at least 1 GPU**.
+    
+    Alternatively, you can choose *None* if you are not in need of GPU resources yet (you can always add on later) to save cost, and in this case GPU drivers and CUDA will not be installed.
+5. In `Frameworks` field, change `TensorFlow Enterpris 2.1 (CUDA 10.1)` to `PyTorch 1.4 + fast.ai (CUDA 10.0)`. If you wish to use Tensorflow, our setup script will help you set it up later in this tutorial.
+6. Check the box `Install NVIDIA GPU driver automatically on first startup?`.
+7. Check the box `Enable access to JupyterLab via URL instead of SSH. (Beta)`.
+8. Leave all other options as default.
+9. Click the blue botton `Deploy` at the end of the page. It will **Automatically Start your Instance**, so if you don't need to use it now, **Stop it Immediately**.
 
-<img src=".img/machine-typ.png" width="50%">
+
+Your configuration sheet should look similar to below image. Follow exactly the same configuration for the ones with red boxes. For configurations with orange boxes, you can adjust it based on your project need as discussed below. 
+Pay attention to the monthly price, make sure you claim only necessary HW resources, so that you can use your GCP instance for longer. 
+**Once you run out of credits, the VM instance will be shut down automatically and you might lose unsaved data and models.** If you are almost running out of credits, contact the course staff.
+![](.img/vm-config.png)
+
+#### Change Configuration on Already Created VM Instances
+You can always change number of CPUs, number of GPUs, CPU memory, and GPU type **after your VM has been created**. 
+Just stop your instance, go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. Click "edit" on your VM's page to modify the settings and click "Save"".
 
 ### Configure Networking
 
