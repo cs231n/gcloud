@@ -18,10 +18,10 @@
 6. [Access Your Newly created VM](#access-your-newly-created-vm)
     1. [Install gcloud command-line Tools](#install-gcloud-command-line-tools)
     2. [First-time Setup Script](#first-time-setup-script)
-    3. [Using Jupyter Notebook with Google Compute Engine](#using-jupyter-notebook-with-google-compute-engine)
 7. [Remote Server Development](#remote-server-development)
-    1. [Transferring Files From Your Instance To Your Computer](#transferring-files-from-your-instance-to-your-computer)
-    2. [Other Tips](#other-tips)
+    1. [Using Jupyter Notebook with Google Compute Engine](#using-jupyter-notebook-with-google-compute-engine)
+    2. [Transferring Files From Your Instance To Your Computer](#transferring-files-from-your-instance-to-your-computer)
+    3. [Other Tips](#other-tips)
     
 
 ## Overview 
@@ -116,8 +116,7 @@ Your account typically does not come with GPU quota. You have to explicitly requ
 
 2. If you just registered a Google Cloud account, GCP can be slow on set up its Compute Engine API services (this is the service that provides GPU access so the GPU quota won't show up before it is ready). 
 
-One way I found that can make Compute Engine API setup faster is by visiting the VM instance page  **Compute Engine** > **VM instances**
-![](.img/go-to-vm-instance.png)
+One way I found that can make Compute Engine API setup faster is by visiting the [VM instance page](https://console.cloud.google.com/compute/)  **Compute Engine** > **VM instances**
 
 If you see that Compute Engine is not ready yet, wait for couple minutes until you see something like this screenshot below. The GPU-related Quota should now show up in  **IAM Admin** > **Quotas**. 
 ![](.img/vm-instance-ready.png)
@@ -151,13 +150,19 @@ More instructions at [General quota instructions](https://cloud.google.com/compu
 
 
 Your configuration sheet should look similar to below image. Follow exactly the same configuration for the ones with red boxes. For configurations with orange boxes, you can adjust it based on your project need as discussed below. 
+
 Pay attention to the monthly price, make sure you claim only necessary HW resources, so that you can use your GCP instance for longer. 
 **Once you run out of credits, the VM instance will be shut down automatically and you might lose unsaved data and models.** If you are almost running out of credits, contact the course staff.
 ![](.img/vm-config.png)
 
 #### Change Configuration on Already Created VM Instances
 You can always change number of CPUs, number of GPUs, CPU memory, and GPU type **after your VM has been created**. 
-Just stop your instance, go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. Click "edit" on your VM's page to modify the settings and click "Save"".
+
+Just stop your instance, go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. 
+
+Click "edit" on your VM's page to modify the settings. 
+
+Finally click "Save"".
 
 ### Configure Networking
 
@@ -185,6 +190,26 @@ Your configuration sheets should look similar to below:
 Firewall Rules:
 
 <img src=".img/firewall.png" width="70%">
+
+
+#### Getting a Static IP Address
+If you want to have a static IP for ease of access, you can change the External IP address of your Google Cloud Engine instance to be static (see screenshot below).
+
+![](.img/external-ip.png)
+
+To Do this, click on the 3 line icon next to the **Google Cloud Platform** button on the top left corner of your screen, go to **VPC network** > **External IP addresses** (see screenshot below).
+
+![](.img/networking-external-ip.png)
+
+To have a static IP address, change **Type** from **Ephemeral** to **Static**. Enter your prefered name for your static IP, ours is `cs231n-ip` (see screenshot below). And click on Reserve. 
+
+**NOTE:** At the end of CS 231N when you don't need your instance anymore, release the static IP address because Google charges a small fee for unused static IPs (according to [this page](https://jeffdelaney.me/blog/running-jupyter-notebook-google-cloud-platform/)).
+
+![](.img/networking-external-ip-naming.png)
+
+Take note of your Static IP address (circled on the screenshot below). We use 35.185.240.182 for this tutorial.
+
+![](.img/networking-external-ip-address.png)
 
 
 ## Access Your Newly Created VM 
@@ -223,30 +248,12 @@ If you have GPU enabled, you should be able to:
 * inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
 * If you want to use Tensorflow 2.0, run `python test_tf.py`. The script will show you the installed Tensorflow version (2.0.0-alpha) and then run a sample MNIST training. You should see around 97% accuracy at the end.  
 
+
+
+## Remote Server Development
+
 ### Using Jupyter Notebook with Google Compute Engine 
-You can also use Jupyter Notebook to experiment in your projects. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
-
-#### Getting a Static IP Address ###
-Change the External IP address of your Google Cloud Engine instance to be static (see screenshot below).
-
-![](.img/external-ip.png)
-
-To Do this, click on the 3 line icon next to the **Google Cloud Platform** button on the top left corner of your screen, go to **VPC network** > **External IP addresses** (see screenshot below).
-
-![](.img/networking-external-ip.png)
-
-To have a static IP address, change **Type** from **Ephemeral** to **Static**. Enter your prefered name for your static IP, ours is `cs231n-ip` (see screenshot below). And click on Reserve. 
-
-**NOTE:** At the end of CS 231N when you don't need your instance anymore, release the static IP address because Google charges a small fee for unused static IPs (according to [this page](https://jeffdelaney.me/blog/running-jupyter-notebook-google-cloud-platform/)).
-
-![](.img/networking-external-ip-naming.png)
-
-Take note of your Static IP address (circled on the screenshot below). We use 35.185.240.182 for this tutorial.
-
-![](.img/networking-external-ip-address.png)
-
-
-#### Launching and Connecting to Jupyter Notebook
+If you wish, you can use Jupyter Notebook to experiment in your projects. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
 
 After you ssh into your VM using the prior instructions, run Jupyter notebook from the folder with your assignment files.
 
@@ -257,9 +264,6 @@ jupyter notebook
 The default port is `8888`, specified in `~/.jupyter/jupyter_notebook_config.py`.
 
 You can connect to your Jupyter session from your personal laptop. Open any browser and visit `35.185.240.182:8888`. The login password is the one you set with the setup script above.
-
-
-## Remote Server Development
 
 
 ### Transferring Files From Your Instance To Your Computer
