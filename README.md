@@ -95,6 +95,11 @@ NOTE: You should have created and logged in your GCP account registered with you
 ![](/.img/accept-credits.png)
 ![](/.img/billing-page.png)
 
+4. Switching billing accounts from Free Tier credits to CS231N credits
+Google Cloud does not support combining credits. You will need to switch billing account if you want to use 2 sources of gcloud credits. 
+
+i.e. You can use up the $300 free credits first. Then switch to the CS231N billing account referring to this [GCloud documentation](https://cloud.google.com/billing/docs/how-to/modify-project#change_the_billing_account_for_a_project).
+
 ## Request an Increase in GPU Quota
 
 Your account typically does not come with GPU quota. You have to explicitly request for it under **IAM Admin** > **Quotas**. 
@@ -116,16 +121,14 @@ Your account typically does not come with GPU quota. You have to explicitly requ
 
 1. First, make sure you first upgrade your free tier account to full account following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade).
 
-2. If you just registered a Google Cloud account, GCP can be slow on set up its Compute Engine API services (this is the service that provides GPU access so the GPU quota won't show up before it is ready). 
+2. If you just registered a Google Cloud account, GCP can be slow on setting up its Compute Engine API services (this is the service that provides GPU access, so the GPU quota won't show up before it is ready). 
 
-One way I found that can make Compute Engine API setup faster is by visiting the [VM instance page](https://console.cloud.google.com/compute/)  **Compute Engine** > **VM instances**
+One way I found that can make Compute Engine API setup faster is by visiting the [VM instance page](https://console.cloud.google.com/compute/) by clicking  **Compute Engine** > **VM instances**
 
 If you see that Compute Engine is not ready yet, wait for couple minutes until you see something like this screenshot below. The GPU-related Quota should now show up in  **IAM Admin** > **Quotas**. 
 ![](.img/vm-instance-ready.png)
 
-3. For region-specific GPUs: not all GPUs Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Some zones do not have GPU resources.
-
-4. Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing) to find the availability of GPU resources. 
+3. For region-specific GPUs: Check that you have a default zone and region set under **Compute Engine** > **Settings** > **Region** / **Zone**. Some zones do not have certain GPU resources. Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing) to find the availability of GPU resources. 
 
 
 More instructions at [General quota instructions](https://cloud.google.com/compute/quotas#requesting_additional_quota) and [Step-by-step GPU-specific walk-through](https://stackoverflow.com/questions/45227064/how-to-request-gpu-quota-increase-in-google-cloud) (all answers in the link are useful)
@@ -246,7 +249,7 @@ If you have GPU enabled, you should be able to:
 
 * run `nvidia-smi` and see the list of attached GPUs and their usage statistics. Run `watch nvidia-smi` to monitor your GPU usage in real time.
 * inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
-* If you want to use Tensorflow 2.0, run `python test_tf.py`. The script will show you the installed Tensorflow version (2.0.0-alpha) and then run a sample MNIST training. You should see around 97% accuracy at the end.  
+* If you want to use Tensorflow 2.1, run `python test_tf.py`. The script will show you the installed Tensorflow version (2.1.0) and then run a sample MNIST training. You should see around 97% accuracy at the end.  
 
 
 
