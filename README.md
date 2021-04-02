@@ -1,6 +1,6 @@
 # Google Cloud Setup and Tutorial
 
-(Last Update on April 9, 2020)
+(Last Update on April 2, 2021)
 
 
 # Table of contents
@@ -106,20 +106,21 @@ Your account typically does not come with GPU quota. You have to explicitly requ
 
 **Please request the quota increase ASAP**, because they will take up between couple minutes to a week to process!  If you don't have GPU quota, you will have to create a CPU-only VM first and create another GPU VM later, explained in the next section.
 
-**Notice there are two kinds of GPU quota you will need to adjust.** 
+You will need to change your quota for **GPU (all regions)**.
 
-1. You should first change your quota of **GPU (all regions)**.  Filter the **Metric** to be **GPU (all regions)**, **Location**  to be **Global**. 
-![](.img/gpu-all-regions.png)
+1. Select **Limit name** from the dropdown. Then select **GPUs (all regions)** from the next prompted dropdown. Click the checkbox for **Global** in the menu to the right, and click into **ALL QUOTAS**.
+![](.img/gpu-all-regions-1.png)
 
- Wait until GCP send you a second email (first email is just to notify they receive the request) that looks like this. It could take couple minutes to couple days for them to approve.
+
+2. Select the checkbox to the left of the first item in the table, and click **EDIT QUOTAS**. Set the **New limit** to 1, and make the **Request description** "Stanford CS 231N class project".
+![](.img/gpu-all-regions-2.png)
+
+3. Wait until GCP sends you a second email (first email is just to notify they receive the request) that looks like this. It could take couple minutes to couple days for them to approve.
 ![](.img/gpu-quota-approved.png) 
-
-2. You should adjust your region-specific GPU (usually it is already 1 by default) if you want more than 1 GPU in your VM instance for multi-GPU training. You can filter by the **Metric** and **Location** to set the type of GPU and your region.
-![](.img/gpu-region.png)
 
 ### Why don't I See Any GPU-related Quota
 
-1. First, make sure you first upgrade your free tier account to full account following this [instruction](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade).
+1. First, make sure you upgrade your free tier account to a full account following these [instructions](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade).
 
 2. If you just registered a Google Cloud account, GCP can be slow on setting up its Compute Engine API services (this is the service that provides GPU access, so the GPU quota won't show up before it is ready). 
 
