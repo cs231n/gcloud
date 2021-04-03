@@ -1,6 +1,6 @@
 # Google Cloud Setup and Tutorial
 
-(Last Update on April 2, 2021)
+(Last Update on April 3, 2021)
 
 
 # Table of contents
@@ -142,17 +142,14 @@ More instructions at [General quota instructions](https://cloud.google.com/compu
 1. Go to [this gcloud marketplace](https://console.cloud.google.com/marketplace/config/click-to-deploy-images/tensorflow). You may (or may not) be taken to a page where you have to click on "Launch", and then you should see a configuration sheet with the title "New Deep Learning VM deployment".
 2. Fill in `Deployment name` field with your preferred VM name.
 3. In `Machine type` box, click `Customize`.
-4. Choose your desired number of CPUs and memory. 
-5. Set `Number of GPUs` to `None` if you don't need GPUs.
-6. For `GPU type`, `NVIDIA Tesla K80` is typically enough. `P100` and `V100` are way more expensive (check the price on the right), but also faster and has larger memory. Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing). 
+4. Choose your desired number of CPUs and memory (if you are unsure, keep the default). 
+5. For `GPU type`, `NVIDIA Tesla K80` is typically enough. `P100` and `V100` are way more expensive (check the price on the right), but also faster and has larger memory. Check [pricing and spec for GCP GPUs](https://cloud.google.com/compute/gpus-pricing). 
     **GPU drivers and CUDA will be automatically installed _only if_ you select at least 1 GPU**.
-    
-    Alternatively, you can choose *None* if you are not in need of GPU resources yet (you can always add on later) to save cost, and in this case GPU drivers and CUDA will not be installed.
-5. In `Frameworks` field, change `TensorFlow Enterpris 2.1 (CUDA 10.1)` to `PyTorch 1.4 + fast.ai (CUDA 10.0)`. If you wish to use Tensorflow, our setup script will help you set it up later in this tutorial.
-6. Check the box `Install NVIDIA GPU driver automatically on first startup?`.
-7. Check the box `Enable access to JupyterLab via URL instead of SSH. (Beta)`.
-8. Leave all other options as default.
-9. Click the blue botton `Deploy` at the end of the page. It will **Automatically Start your Instance**, so if you don't need to use it now, **Stop it Immediately**.
+6. In `Frameworks` field, choose the most recent version of TensorFlow or PyTorch, depending on which framework you plan to use.
+7. Check the box `Install NVIDIA GPU driver automatically on first startup?`.
+8. Check the box `Enable access to JupyterLab via URL instead of SSH. (Beta)`.
+9. Leave all other options as default.
+10. Click the blue botton `Deploy` at the end of the page. It will **automatically start your instance**, so if you don't need to use it now, **stop it immediately**.
 
 
 Your configuration sheet should look similar to below image. Follow exactly the same configuration for the ones with red boxes. For configurations with orange boxes, you can adjust it based on your project need as discussed below. 
@@ -172,7 +169,7 @@ Pay attention to the monthly price, make sure you claim only necessary HW resour
 
 Wait until the deployment is finished. You should see a running VM with a green checkmark next to it on your [Compute Engine page](https://console.cloud.google.com/compute/).
 
-We need to tweak a few more settings to enable remote access to Jupyter notebooks.
+We need to tweak a few more settings to enable remote access to Jupyter Notebook.
 
 1. You must stop the instance first.
 2. Go to your VM instance's details at **Compute Engine** > **VM instances** > [click on instance name]. Click "edit" on your VM's page.
@@ -234,24 +231,13 @@ gcloud compute --project "<YOUR_PROJECT_ID>" ssh --zone "us-west1-b" "<YOUR_VM_N
 ![](.img/connect-to-vm.png)
 
 
-### First-time Setup Script
-
-After you SSH into the VM for the first time, you need to run a few commands in your home directory. You will be asked to set up a password for your Jupyter notebook.
-```bash
-git clone https://github.com/cs231n/gcloud.git
-cd gcloud/
-chmod +x ./setup.sh
-./setup.sh
-```
-
-#### Verification
+### Verification
 
 If you have GPU enabled, you should be able to:
 
 * run `nvidia-smi` and see the list of attached GPUs and their usage statistics. Run `watch nvidia-smi` to monitor your GPU usage in real time.
 * inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
-* If you want to use Tensorflow 2.1, run `python test_tf.py`. The script will show you the installed Tensorflow version (2.1.0) and then run a sample MNIST training. You should see around 97% accuracy at the end.  
-
+* If you want to use TensorFlow, run `python test_tf.py`. The script will show you the installed TensorFlow version and then run a sample MNIST training. You should see around 97% accuracy at the end.  
 
 
 ## Remote Server Development
@@ -259,7 +245,15 @@ If you have GPU enabled, you should be able to:
 ### Using Jupyter Notebook with Google Compute Engine 
 If you wish, you can use Jupyter Notebook to experiment in your projects. Below, we discuss how to run Jupyter Notebook from your GCE instance and connect to it with your local browser.
 
-After you ssh into your VM using the prior instructions, run Jupyter notebook from the folder with your assignment files.
+After you SSH into the VM for the first time, you need to run a few commands in your home directory. You will be asked to set up a password for your Jupyter Notebook.
+```bash
+git clone https://github.com/cs231n/gcloud.git
+cd gcloud/
+chmod +x ./setup.sh
+./setup.sh
+```
+
+Now you can run Jupyter Notebook from the folder with your assignment files.
 
 ```
 jupyter notebook
