@@ -1,6 +1,6 @@
 # Google Cloud Setup and Tutorial
 
-(Last Update on April 3, 2021)
+(Last Update on April 7, 2021)
 
 
 # Table of contents
@@ -17,11 +17,11 @@
     2. [Configure Networking](#configure-networking)
 6. [Access Your Newly created VM](#access-your-newly-created-vm)
     1. [Install gcloud command-line Tools](#install-gcloud-command-line-tools)
-    2. [Verification](#verification)
 7. [Remote Server Development](#remote-server-development)
     1. [Using Jupyter Notebook with Google Compute Engine](#using-jupyter-notebook-with-google-compute-engine)
-    2. [Transferring Files From Your Instance To Your Computer](#transferring-files-from-your-instance-to-your-computer)
-    3. [Other Tips](#other-tips)
+    2. [Verification](#verification)
+    3. [Transferring Files From Your Instance To Your Computer](#transferring-files-from-your-instance-to-your-computer)
+    4. [Other Tips](#other-tips)
     
 
 ## Overview 
@@ -230,14 +230,7 @@ gcloud compute --project "<YOUR_PROJECT_ID>" ssh --zone "us-west1-b" "<YOUR_VM_N
 
 ![](.img/connect-to-vm.png)
 
-
-### Verification
-
-If you have GPU enabled, you should be able to:
-
-* run `nvidia-smi` and see the list of attached GPUs and their usage statistics. Run `watch nvidia-smi` to monitor your GPU usage in real time.
-* inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
-* If you want to use TensorFlow, run `python test_tf.py`. The script will show you the installed TensorFlow version and then run a sample MNIST training. You should see around 97% accuracy at the end.  
+You should now be able to run `nvidia-smi` and see the list of attached GPUs and their usage statistics. Run `watch nvidia-smi` to monitor your GPU usage in real time.
 
 
 ## Remote Server Development
@@ -263,6 +256,9 @@ The default port is `8888`, specified in `~/.jupyter/jupyter_notebook_config.py`
 
 You can connect to your Jupyter session from your personal laptop. Check the external ip address of your instance, say it is `35.185.240.182`. Open any browser and visit `35.185.240.182:8888`. The login password is the one you set with the setup script above.
 
+### Verification
+* Inside the `gcloud/` folder, run `python verify_gpu.py`. If your GPU is attached and CUDA is correctly installed, you shouldn't see any error.
+* If you want to use TensorFlow, run `python test_tf.py`. The script will show you the installed TensorFlow version and then run a sample MNIST training. You should see around 97% accuracy at the end.  
 
 ### Transferring Files From Your Instance To Your Computer
 
